@@ -2,8 +2,8 @@
 #include  "main.h"
 #include "Manual.h"
 
-#define 		MEMDATA_LEN    200
-static uint8_t  Tbl_MemData[MEMDATA_LEN] = {0};
+//#define 		MEMDATA_LEN    200
+//static uint8_t  Tbl_MemData[MEMDATA_LEN] = {0};
 
 char Device_SN[18]={"test00110000000001"};
 const char Device_Prefix[8] = {"sgszhdgs"};
@@ -11,71 +11,71 @@ const char Device_Prefix[8] = {"sgszhdgs"};
 /********************************************************************
 *	功能	：	写入数组【4字节参数】
 ******************************************************************************/
-static void Array_Write(uint32_t addrbase, uint64_t value, uint8_t nbytes)
-{
-	if(nbytes == 8)																		//PULSE参数可能会出现大于4字节情况
-	{
-		Tbl_MemData[addrbase]		= value / 256 / 256 / 256 / 256 / 256 / 256 / 256;
-		Tbl_MemData[addrbase + 1]	= value / 256 / 256 / 256 / 256 / 256 / 256 % 256;
-		Tbl_MemData[addrbase + 2]	= value / 256 / 256 / 256 / 256 / 256 % 256;
-		Tbl_MemData[addrbase + 3]	= value / 256 / 256 / 256 / 256 % 256;
-		Tbl_MemData[addrbase + 4]	= value / 256 / 256 / 256 % 256;
-		Tbl_MemData[addrbase + 5]	= value / 256 / 256 % 256;
-		Tbl_MemData[addrbase + 6]	= value / 256 % 256;
-		Tbl_MemData[addrbase + 7]	= value % 256;
-	}
-	else if(nbytes == 4)
-	{
-		Tbl_MemData[addrbase]		= value / 256 / 256 / 256;
-		Tbl_MemData[addrbase + 1]	= value / 256 / 256 % 256;
-		Tbl_MemData[addrbase + 2]	= value / 256 % 256;
-		Tbl_MemData[addrbase + 3]	= value % 256;
-	}
-	else if(nbytes == 2)
-	{
-		Tbl_MemData[addrbase]		= value / 256 % 256;
-		Tbl_MemData[addrbase + 1]	= value % 256;
-	}
-	else if(nbytes == 1)
-	{
-		Tbl_MemData[addrbase]		= value % 256;
-	}
-	else{}
-}
+//static void Array_Write(uint32_t addrbase, uint64_t value, uint8_t nbytes)
+//{
+//	if(nbytes == 8)																		//PULSE参数可能会出现大于4字节情况
+//	{
+//		Tbl_MemData[addrbase]		= value / 256 / 256 / 256 / 256 / 256 / 256 / 256;
+//		Tbl_MemData[addrbase + 1]	= value / 256 / 256 / 256 / 256 / 256 / 256 % 256;
+//		Tbl_MemData[addrbase + 2]	= value / 256 / 256 / 256 / 256 / 256 % 256;
+//		Tbl_MemData[addrbase + 3]	= value / 256 / 256 / 256 / 256 % 256;
+//		Tbl_MemData[addrbase + 4]	= value / 256 / 256 / 256 % 256;
+//		Tbl_MemData[addrbase + 5]	= value / 256 / 256 % 256;
+//		Tbl_MemData[addrbase + 6]	= value / 256 % 256;
+//		Tbl_MemData[addrbase + 7]	= value % 256;
+//	}
+//	else if(nbytes == 4)
+//	{
+//		Tbl_MemData[addrbase]		= value / 256 / 256 / 256;
+//		Tbl_MemData[addrbase + 1]	= value / 256 / 256 % 256;
+//		Tbl_MemData[addrbase + 2]	= value / 256 % 256;
+//		Tbl_MemData[addrbase + 3]	= value % 256;
+//	}
+//	else if(nbytes == 2)
+//	{
+//		Tbl_MemData[addrbase]		= value / 256 % 256;
+//		Tbl_MemData[addrbase + 1]	= value % 256;
+//	}
+//	else if(nbytes == 1)
+//	{
+//		Tbl_MemData[addrbase]		= value % 256;
+//	}
+//	else{}
+//}
 
 /********************************************************************
 *	功能	：	读取数组【4字节参数】
 ******************************************************************************/
-static uint64_t Array_Read(uint32_t addrbase, uint8_t nbytes)
-{
-	uint64_t value = 0;	
-	if(nbytes == 8)
-	{
-		value = (uint64_t)Tbl_MemData[addrbase] * 256 * 256 * 256 * 256 * 256 * 256 * 256 
-				+ (uint64_t)Tbl_MemData[addrbase + 1] * 256 * 256 * 256 * 256 * 256 * 256 
-				+ (uint64_t)Tbl_MemData[addrbase + 2] * 256 * 256 * 256 * 256 * 256 
-				+ (uint64_t)Tbl_MemData[addrbase + 3] * 256 * 256 * 256 * 256
-				+ (uint64_t)Tbl_MemData[addrbase + 4] * 256 * 256 * 256 
-				+ (uint64_t)Tbl_MemData[addrbase + 5] * 256 * 256 
-				+ (uint64_t)Tbl_MemData[addrbase + 6] * 256 
-				+ (uint64_t)Tbl_MemData[addrbase + 7];
-	}
-	else if(nbytes == 4)
-	{
-		value = Tbl_MemData[addrbase] * 256 * 256 * 256 + Tbl_MemData[addrbase + 1] * 256 * 256 + Tbl_MemData[addrbase + 2] * 256 + Tbl_MemData[addrbase + 3];
-	}
-	else if(nbytes == 2)
-	{
-		value = Tbl_MemData[addrbase] * 256 + Tbl_MemData[addrbase + 1];
-	}
-	else if(nbytes == 1)
-	{
-		value = Tbl_MemData[addrbase];
-	}
-	else{}
-	
-	return(value);
-}
+//static uint64_t Array_Read(uint32_t addrbase, uint8_t nbytes)
+//{
+//	uint64_t value = 0;	
+//	if(nbytes == 8)
+//	{
+//		value = (uint64_t)Tbl_MemData[addrbase] * 256 * 256 * 256 * 256 * 256 * 256 * 256 
+//				+ (uint64_t)Tbl_MemData[addrbase + 1] * 256 * 256 * 256 * 256 * 256 * 256 
+//				+ (uint64_t)Tbl_MemData[addrbase + 2] * 256 * 256 * 256 * 256 * 256 
+//				+ (uint64_t)Tbl_MemData[addrbase + 3] * 256 * 256 * 256 * 256
+//				+ (uint64_t)Tbl_MemData[addrbase + 4] * 256 * 256 * 256 
+//				+ (uint64_t)Tbl_MemData[addrbase + 5] * 256 * 256 
+//				+ (uint64_t)Tbl_MemData[addrbase + 6] * 256 
+//				+ (uint64_t)Tbl_MemData[addrbase + 7];
+//	}
+//	else if(nbytes == 4)
+//	{
+//		value = Tbl_MemData[addrbase] * 256 * 256 * 256 + Tbl_MemData[addrbase + 1] * 256 * 256 + Tbl_MemData[addrbase + 2] * 256 + Tbl_MemData[addrbase + 3];
+//	}
+//	else if(nbytes == 2)
+//	{
+//		value = Tbl_MemData[addrbase] * 256 + Tbl_MemData[addrbase + 1];
+//	}
+//	else if(nbytes == 1)
+//	{
+//		value = Tbl_MemData[addrbase];
+//	}
+//	else{}
+//	
+//	return(value);
+//}
 
 /********************************************************************
 *	功能	：	超限处理
@@ -129,15 +129,15 @@ void Memory_ConfigLoad(void)
 		sMemData.V_ModeSingle_fUnit					= UserOperation.V_ModeSingle.fUnit;
 		sMemData.V_ModeSingle_ParamNAD_PULSE		= 0;
 		sMemData.V_ModeSingle_ParamNAD_AMPL			= 0;
-		sMemData.V_ModeSingle_Param_PULSE			= 10000000;	//10ms
-		sMemData.V_ModeSingle_Param_AMPL			= 3000000;	//3V
+		sMemData.V_ModeSingle_Param_PULSE			= 2000000;	//2ms
+		sMemData.V_ModeSingle_Param_AMPL			= 15000000;	//15V
 
 		sMemData.V_ModeFreeRun_fUnit				= UserOperation.V_ModeFreeRun.fUnit;
 		sMemData.V_ModeFreeRun_ParamNAD_PULSE		= 0,
 		sMemData.V_ModeFreeRun_ParamNAD_AMPL		= 0,
 		sMemData.V_ModeFreeRun_ParamNAD_FREQ		= 0,
-		sMemData.V_ModeFreeRun_Param_PULSE			= 10000000,
-		sMemData.V_ModeFreeRun_Param_AMPL			= 3000000,
+		sMemData.V_ModeFreeRun_Param_PULSE			= 2000000,
+		sMemData.V_ModeFreeRun_Param_AMPL			= 15000000,
 		sMemData.V_ModeFreeRun_Param_FREQ			= 1000000,	//1Hz
 
 		sMemData.V_ModeTrain_fUnit					= UserOperation.V_ModeTrain.fUnit;
@@ -145,26 +145,26 @@ void Memory_ConfigLoad(void)
 		sMemData.V_ModeTrain_ParamNAD_AMPL			= 0;
 		sMemData.V_ModeTrain_ParamNAD_FREQ			= 0;
 		sMemData.V_ModeTrain_ParamNAD_DURATION		= 0;
-		sMemData.V_ModeTrain_Param_PULSE			= 10000000;
-		sMemData.V_ModeTrain_Param_AMPL				= 3000000;
+		sMemData.V_ModeTrain_Param_PULSE			= 2000000;
+		sMemData.V_ModeTrain_Param_AMPL				= 15000000;
 		sMemData.V_ModeTrain_Param_FREQ				= 1000000;
-		sMemData.V_ModeTrain_Param_DURATION			= 10000000;	//10s
+		sMemData.V_ModeTrain_Param_DURATION			= 30000000;	//30s
 
 		sMemData.V_ModeExtBnc_fUnit					= UserOperation.V_ModeExtBnc.fUnit;
 		sMemData.V_ModeExtBnc_ParamNAD_AMPL			= 0;
-		sMemData.V_ModeExtBnc_Param_AMPL			= 3000000;
+		sMemData.V_ModeExtBnc_Param_AMPL			= 15000000;
 
 		sMemData.C_ModeSingle_fUnit					= UserOperation.C_ModeSingle.fUnit;
 		sMemData.C_ModeSingle_ParamNAD_PULSE		= 0;
 		sMemData.C_ModeSingle_ParamNAD_AMPL			= 0;
-		sMemData.C_ModeSingle_Param_PULSE			= 10000000;
+		sMemData.C_ModeSingle_Param_PULSE			= 2000000;
 		sMemData.C_ModeSingle_Param_AMPL			= 1000000;
 
 		sMemData.C_ModeFreeRun_fUnit				= UserOperation.C_ModeFreeRun.fUnit;
 		sMemData.C_ModeFreeRun_ParamNAD_PULSE		= 0;
 		sMemData.C_ModeFreeRun_ParamNAD_AMPL		= 0;
 		sMemData.C_ModeFreeRun_ParamNAD_FREQ		= 0;
-		sMemData.C_ModeFreeRun_Param_PULSE			= 10000000;
+		sMemData.C_ModeFreeRun_Param_PULSE			= 2000000;
 		sMemData.C_ModeFreeRun_Param_AMPL			= 1000000;
 		sMemData.C_ModeFreeRun_Param_FREQ			= 1000000;
 
@@ -173,17 +173,24 @@ void Memory_ConfigLoad(void)
 		sMemData.C_ModeTrain_ParamNAD_AMPL			= 0;
 		sMemData.C_ModeTrain_ParamNAD_FREQ			= 0;
 		sMemData.C_ModeTrain_ParamNAD_DURATION		= 0;
-		sMemData.C_ModeTrain_Param_PULSE			= 10000000;
+		sMemData.C_ModeTrain_Param_PULSE			= 2000000;
 		sMemData.C_ModeTrain_Param_AMPL				= 1000000;
 		sMemData.C_ModeTrain_Param_FREQ				= 1000000;
-		sMemData.C_ModeTrain_Param_DURATION			= 10000000;
+		sMemData.C_ModeTrain_Param_DURATION			= 30000000;
 
 		sMemData.C_ModeExtBnc_fUnit					= UserOperation.C_ModeExtBnc.fUnit;
 		sMemData.C_ModeExtBnc_ParamNAD_AMPL			= 0;
 		sMemData.C_ModeExtBnc_Param_AMPL			= 1000000;
 
-		sMemData.V_Wave_type						= 0;
-		sMemData.C_Wave_type						= 0;
+		sMemData.V_ModeSingle_Wave_type		 = 0 ;		
+	  	sMemData.V_ModeFreeRun_Wave_type     = 0 ;
+	  	sMemData.V_ModeTrain_Wave_type       = 0 ;
+	  	sMemData.V_ModeExtBnc_Wave_type      = 0 ;
+	  	sMemData.C_ModeSingle_Wave_type		 = 0 ;			
+	  	sMemData.C_ModeFreeRun_Wave_type     = 0 ;
+	  	sMemData.C_ModeTrain_Wave_type       = 0 ;
+	  	sMemData.C_ModeExtBnc_Wave_type      = 0 ;
+		
 		sMemData.V_Bnc_Pulse						= 0;
 		sMemData.C_Bnc_Pulse						= 0;
 		sMemData.MCU_POR_Times						= 0;
@@ -191,6 +198,19 @@ void Memory_ConfigLoad(void)
 		sMemData.sCheckdata_B = 0x45;																													
 		
 		AT24CXX_Write(512, (void *)&sMemData, sizeof(sMemData));
+		
+		
+		
+		
+	
+		sAdditionalData.V_Wave_type = 2;
+		sAdditionalData.C_Wave_type = 2;
+		sAdditionalData.V_Bnc_Pulse = 2000000;
+		sAdditionalData.C_Bnc_Pulse = 2000000;
+		
+		
+		AT24CXX_Write(230, (void *)&sAdditionalData, sizeof(sAdditionalData));
+		
 		
 		UserOperation.V_ModeSingle.fUnit						= sMemData.V_ModeSingle_fUnit				;
 		UserOperation.V_ModeSingle.ParamNAD[UO_PARAM_PULSE] 	= sMemData.V_ModeSingle_ParamNAD_PULSE		;
@@ -403,9 +423,7 @@ void Memory_ConfigLoad(void)
 	AT24CXX_Read(230, (void *)&sAdditionalData, sizeof(sAdditionalData));
 	
 	if(sAdditionalData.V_Wave_type>3)sAdditionalData.V_Wave_type=0;
-	else{}
 	if(sAdditionalData.C_Wave_type>3)sAdditionalData.C_Wave_type=0;
-	else{}
 	
 	log_info("V_Wave_type:%d,C_Wave_type:%d\r\n",sAdditionalData.V_Wave_type,sAdditionalData.C_Wave_type);
 		
@@ -526,11 +544,16 @@ void Memory_Poll(void)
 		sMemData.C_ModeExtBnc_fUnit					= UserOperation.C_ModeExtBnc.fUnit;
 		sMemData.C_ModeExtBnc_ParamNAD_AMPL			= UserOperation.C_ModeExtBnc.ParamNAD[UO_PARAM_AMPL];
 		sMemData.C_ModeExtBnc_Param_AMPL			= UserOperation.C_ModeExtBnc.Param[UO_PARAM_AMPL];
-
-		sMemData.V_Wave_type						= 0;
-		sMemData.C_Wave_type						= 0;
-		sMemData.V_Bnc_Pulse						= 0;
-		sMemData.C_Bnc_Pulse						= 0;
+		
+		sMemData.V_ModeSingle_Wave_type		 = 0 ;		
+	  	sMemData.V_ModeFreeRun_Wave_type     = 0 ;
+	  	sMemData.V_ModeTrain_Wave_type       = 0 ;
+	  	sMemData.V_ModeExtBnc_Wave_type      = 0 ;
+	  	sMemData.C_ModeSingle_Wave_type		 = 0 ;			
+	  	sMemData.C_ModeFreeRun_Wave_type     = 0 ;
+	  	sMemData.C_ModeTrain_Wave_type       = 0 ;
+	  	sMemData.C_ModeExtBnc_Wave_type      = 0 ;
+	
 		sMemData.MCU_POR_Times						= 0;
 
 		sMemData.sCheckdata_B = 0x45;																													

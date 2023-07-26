@@ -94,7 +94,7 @@ void TIM5_IRQHandler(void)
 {	
 	if(TIM_GetITStatus(TIM5,TIM_IT_Update) != RESET)
 	{	
-		log_info("in TIM5_IRQHandler \r\n");
+		//log_info("in TIM5_IRQHandler \r\n");
 		
 		if((Wave_type == 0) || (Wave_type == 1))
 		{
@@ -290,7 +290,6 @@ __IO uint32_t tim3_count =0;
 void TIM3_IRQHandler(void)
 {	
 	if(TIM_GetITStatus(TIM3,TIM_IT_Update) != RESET)
-	//if(TIM3->SR&0X0001)
 	{
 		tim3_count++;
 		

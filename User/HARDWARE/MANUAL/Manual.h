@@ -242,8 +242,14 @@ typedef struct  __attribute__ ((__packed__))		//附加的参数
 	uint8_t		C_ModeExtBnc_ParamNAD_AMPL;
 	uint64_t	C_ModeExtBnc_Param_AMPL;
 	
-	uint8_t  	V_Wave_type;					//波形类型
-	uint8_t  	C_Wave_type;					//波形类型
+	uint8_t  	V_ModeSingle_Wave_type;					//波形类型
+	uint8_t  	V_ModeFreeRun_Wave_type;
+	uint8_t  	V_ModeTrain_Wave_type;
+	uint8_t  	V_ModeExtBnc_Wave_type;
+	uint8_t  	C_ModeSingle_Wave_type;					//波形类型
+	uint8_t  	C_ModeFreeRun_Wave_type;
+	uint8_t  	C_ModeTrain_Wave_type;
+	uint8_t  	C_ModeExtBnc_Wave_type;
 	uint64_t	V_Bnc_Pulse;					//外部触发模式的宽度，仅在波形2、3起作用
 	uint64_t	C_Bnc_Pulse;					//外部触发模式的宽度，仅在波形2、3起作用
 	uint32_t	MCU_POR_Times;					//记录MCU上电次数

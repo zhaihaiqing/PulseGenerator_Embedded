@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Output\STM32F4_DEMO.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Output\STM32F4_DEMO.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Jul 25 21:13:59 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Jul 26 10:02:48 2023
 <BR><P>
-<H3>Maximum Stack Usage =        408 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        416 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; Init_Devices &rArr; test_eeprom &rArr; AT24CXX_Read &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck
 <P>
@@ -983,7 +983,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a2]"></a>Init_Devices</STRONG> (Thumb, 582 bytes, Stack size 40 bytes, main.o(i.Init_Devices))
-<BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = Init_Devices &rArr; test_eeprom &rArr; AT24CXX_Read &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck
+<BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = Init_Devices &rArr; test_eeprom &rArr; AT24CXX_Read &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_eeprom
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WDG_Init
@@ -1256,7 +1256,7 @@ Global Symbols
 <P><STRONG><a name="[5]"></a>MemManage_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.MemManage_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
-<P><STRONG><a name="[b5]"></a>Memory_ConfigLoad</STRONG> (Thumb, 2734 bytes, Stack size 16 bytes, at24c64memdata.o(i.Memory_ConfigLoad))
+<P><STRONG><a name="[b5]"></a>Memory_ConfigLoad</STRONG> (Thumb, 2906 bytes, Stack size 16 bytes, at24c64memdata.o(i.Memory_ConfigLoad))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = Memory_ConfigLoad &rArr; Switch_Ctrl &rArr; AD5542_Output &rArr; AD5542_WriteB &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_PutKey
@@ -1587,7 +1587,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
-<P><STRONG><a name="[3e]"></a>TIM5_IRQHandler</STRONG> (Thumb, 384 bytes, Stack size 8 bytes, timer.o(i.TIM5_IRQHandler))
+<P><STRONG><a name="[3e]"></a>TIM5_IRQHandler</STRONG> (Thumb, 378 bytes, Stack size 8 bytes, timer.o(i.TIM5_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = TIM5_IRQHandler &rArr; Output_VorC &rArr; AD5542_Output &rArr; AD5542_WriteB &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_VorC
@@ -1595,7 +1595,6 @@ Global Symbols
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Disable_Timer5
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tim5_delay_us
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f40_41xxx.o(RESET)
 </UL>
@@ -1895,7 +1894,6 @@ Global Symbols
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_MCU_Type
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MCU_RESET_Log
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_Devices
-<LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PulseTran_Sub_CalcPwmPara
 </UL>
 
@@ -2007,7 +2005,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[5e]"></a>main</STRONG> (Thumb, 268 bytes, Stack size 72 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 408<LI>Call Chain = main &rArr; Init_Devices &rArr; test_eeprom &rArr; AT24CXX_Read &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck
+<BR><BR>[Stack]<UL><LI>Max Depth = 416<LI>Call Chain = main &rArr; Init_Devices &rArr; test_eeprom &rArr; AT24CXX_Read &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WDG_Feed
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART6_GetChar
@@ -2075,8 +2073,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Manual_Poll
 </UL>
 
-<P><STRONG><a name="[b4]"></a>test_eeprom</STRONG> (Thumb, 66 bytes, Stack size 240 bytes, at24c64memdata.o(i.test_eeprom))
-<BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = test_eeprom &rArr; AT24CXX_Read &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck
+<P><STRONG><a name="[b4]"></a>test_eeprom</STRONG> (Thumb, 66 bytes, Stack size 248 bytes, at24c64memdata.o(i.test_eeprom))
+<BR><BR>[Stack]<UL><LI>Max Depth = 304<LI>Call Chain = test_eeprom &rArr; AT24CXX_Read &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_Read
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
