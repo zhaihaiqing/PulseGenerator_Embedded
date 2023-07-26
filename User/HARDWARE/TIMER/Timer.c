@@ -134,6 +134,8 @@ void TIM5_IRQHandler(void)
 					BNCMode_Reflash_LCD_Status = 0;
 					Disable_Timer5();
 					TIM5_IRQ_Count=0;
+					pLEDOUTPUT = LED_DIRECTLY_OFF;
+					pLEDRUN = LED_DIRECTLY_OFF;
 				}
 			}
 			else
@@ -247,8 +249,11 @@ void Enable_Timer5(u32 arr)
 
 void Disable_Timer5(void)
 {
-	TIM5->CR1 &= (uint16_t)~TIM_CR1_CEN;	//关闭定时器
+	
+	TIM_Cmd(TIM5,DISABLE);	//关闭定时器
 	TIM5->CNT = 0;							//清零计数寄存器,确保下次计数是从0开始的
+	TIM5->ARR = 0;
+	TIM5->SR = (uint16_t)~TIM_IT_Update;
 	
 	if(UserOperation.fMode == UO_MODE_EXTBNC)
 	{
@@ -299,21 +304,21 @@ void TIM3_IRQHandler(void)
 		{
 			if((tim3_count % 2) )
 			{
-				pLEDOUTPUT = LED_DIRECTLY_OFF;
-				pLEDRUN = LED_DIRECTLY_OFF;
+				//pLEDOUTPUT = LED_DIRECTLY_OFF;
+				//pLEDRUN = LED_DIRECTLY_OFF;
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
 			}
 			if((tim3_count % 2) ==0 )
 			{
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
-				pLEDOUTPUT = LED_DIRECTLY_ON;
-				pLEDRUN = LED_DIRECTLY_ON;
+				//pLEDOUTPUT = LED_DIRECTLY_ON;
+				
 			}
 			
 			if(BNCMode_Reflash_LCD_Status == 0 )
 			{
-				pLEDOUTPUT = LED_DIRECTLY_OFF;
-				pLEDRUN = LED_DIRECTLY_OFF;
+				//pLEDOUTPUT = LED_DIRECTLY_OFF;
+				//pLEDRUN = LED_DIRECTLY_OFF;
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
 				tim3_count =0;
 				TIM3_DISABLE();
@@ -325,21 +330,21 @@ void TIM3_IRQHandler(void)
 			
 			if((tim3_count % 2) )
 			{
-				pLEDOUTPUT = LED_DIRECTLY_OFF;
-				pLEDRUN = LED_DIRECTLY_OFF;
+				//pLEDOUTPUT = LED_DIRECTLY_OFF;
+				//pLEDRUN = LED_DIRECTLY_OFF;
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
 			}
 			if((tim3_count % 2) ==0 )
 			{
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
-				pLEDOUTPUT = LED_DIRECTLY_ON;
-				pLEDRUN = LED_DIRECTLY_ON;
+				//pLEDOUTPUT = LED_DIRECTLY_ON;
+				//pLEDRUN = LED_DIRECTLY_ON;
 			}
 			
 			if((tim3_count>2) && (BNCMode_Reflash_LCD_Status == 0) )
 			{
-				pLEDOUTPUT = LED_DIRECTLY_OFF;
-				pLEDRUN = LED_DIRECTLY_OFF;
+				//pLEDOUTPUT = LED_DIRECTLY_OFF;
+				//pLEDRUN = LED_DIRECTLY_OFF;
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
 				tim3_count =0;
 				TIM3_DISABLE();

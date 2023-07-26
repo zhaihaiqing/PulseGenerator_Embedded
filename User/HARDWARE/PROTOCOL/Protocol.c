@@ -244,7 +244,6 @@ void Process_COMMAND_STOP(void)
 	train_acount = 0;
 	train_count = 0;
 	
-	TIM5->CNT = 0;
 	
 	DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
 	

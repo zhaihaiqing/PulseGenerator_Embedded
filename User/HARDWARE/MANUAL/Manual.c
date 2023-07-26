@@ -759,7 +759,7 @@ void Manual_Poll(void)
 				T6.MemoryUpdateCnt = MEMORYUPDATE_UPCNT_START;
 			}
 			else if(i == BTN_SINGLETRIGGER)													//按下单次输出按钮，
-			{
+			{				
 				UserOperation.fParamType = UO_PARAM_NONE;
 				ParamEdit_RefreshPre();
 				
@@ -966,6 +966,7 @@ void Manual_Poll(void)
 */				
 			else if(i == BTN_SINGLE && (DOState.Status[DO_TIM4] == DOSTATE_STATUS_COMPLETE || UserOperation.fMode == UO_MODE_EXTBNC))					//按下单脉冲模式键			
 			{	
+				Process_COMMAND_STOP();
 				TIM3_DISABLE();	
 				pLEDOUTPUT = LED_DIRECTLY_OFF;
 				pLEDRUN = LED_DIRECTLY_OFF;				
@@ -1001,7 +1002,8 @@ void Manual_Poll(void)
 				T6.MemoryUpdateCnt = MEMORYUPDATE_UPCNT_START;
 			}
 			else if(i == BTN_TRAIN && (DOState.Status[DO_TIM4] == DOSTATE_STATUS_COMPLETE || UserOperation.fMode == UO_MODE_EXTBNC))						//按下按时长运行模式键
-			{				
+			{		
+				Process_COMMAND_STOP();
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
 				UI.fFlush = FLUSH_END;
 				TIM3_DISABLE();
@@ -1040,7 +1042,8 @@ void Manual_Poll(void)
 				T6.MemoryUpdateCnt = MEMORYUPDATE_UPCNT_START;
 			}
 			else if(i == BTN_FREERUN && (DOState.Status[DO_TIM4] == DOSTATE_STATUS_COMPLETE || UserOperation.fMode == UO_MODE_EXTBNC))					//按下持续运行模式键
-			{				
+			{		
+				Process_COMMAND_STOP();
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
 				UI.fFlush = FLUSH_END;
 				TIM3_DISABLE();

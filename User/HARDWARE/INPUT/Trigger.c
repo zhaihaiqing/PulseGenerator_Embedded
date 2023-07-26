@@ -49,6 +49,8 @@ void EXTI0_IRQHandler(void)
 				//log_info("123,%d,%d %d\r\n",UserOperation.fMode,Wave_type,pPwmArrayParam[DO_TIM4]->Ampl);
 				
 				pLEDOUTPUT = LED_DIRECTLY_ON;
+				pLEDRUN = LED_DIRECTLY_ON;
+				
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
 				BNCMode_Reflash_LCD_Status = 1;
 				TIM3_ENABLE();
@@ -61,7 +63,7 @@ void EXTI0_IRQHandler(void)
 				{
 					Output_VorC(UserOperation.bVC, (0-pPwmArrayParam[DO_TIM4]->Ampl), OUTPUT_ENABLE);
 				}
-				pTRIGGER_OUT = 1;
+				//pTRIGGER_OUT = 1;
 				//log_info("123\r\n");
 				
 			}
@@ -70,7 +72,10 @@ void EXTI0_IRQHandler(void)
 				//log_info("456,%d,%d %d\r\n",UserOperation.fMode,Wave_type,pPwmArrayParam[DO_TIM4]->Ampl);
 				
 				Output_VorC(UserOperation.bVC, 0, OUTPUT_ENABLE);
-				pTRIGGER_OUT = 0;
+				//pTRIGGER_OUT = 0;
+				
+				pLEDOUTPUT = LED_DIRECTLY_OFF;
+				pLEDRUN = LED_DIRECTLY_OFF;
 				
 				BNCMode_Reflash_LCD_Status = 0;
 			}
@@ -107,6 +112,7 @@ void EXTI0_IRQHandler(void)
 					t5_arr = t5_arr+TIM5_ARR_Compensate2;				
 					
 					pLEDOUTPUT = LED_DIRECTLY_ON;
+					pLEDRUN = LED_DIRECTLY_ON;
 					DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
 					BNCMode_Reflash_LCD_Status = 1;
 					TIM3_ENABLE();
