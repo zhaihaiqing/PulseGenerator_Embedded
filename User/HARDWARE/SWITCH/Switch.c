@@ -81,9 +81,14 @@ void Switch_Ctrl(uint8_t phase)
 				AD5542_Output(DA_CHNL_VOLT,0);//将电压通道DAC设置为0
 			}
 		}
+		
+		if((Wave_type==0) || (Wave_type==1))
+		{
+			TriggerExIN01_Init();
+		}
 		else
 		{
-			
+			TriggerExIN23_Init();
 		}
 		
 		Switch.ModePre = Switch.ModeCur;
