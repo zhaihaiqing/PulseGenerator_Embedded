@@ -76,7 +76,7 @@ void Switch_Ctrl(uint8_t phase)
 				//Voltage_Ploar_Flag	=	1;
 				//Current_Ploar_Flag	=	1;
 				log_info("SW Mode to Current, Negative current!\r\n");
-				pLEDVC				= 1;
+				pLEDVC	   = 1;
 				SW_CV_MODE = 1 ;			 //切换为电流模式
 				AD5542_Output(DA_CHNL_VOLT,0);//将电压通道DAC设置为0
 			}
