@@ -1,6 +1,12 @@
 
 #include  "main.h"
 
+//Does it exceed the human safety threshold;
+
+
+uint8_t is_exceed_human_safety	 = 0;	//定义变量，用于标识是否超过安全阈值（36V或10mA），在输出时进行提醒。
+uint8_t is_refash_warn			 = 0;	//定义变量，用于单次刷新警告
+
 void par_check(void);
 
 sUserOperation_t UserOperation = {
@@ -634,6 +640,34 @@ void SettingInfo_Modify(uint8_t btn_value)
 	T6.MemoryUpdateCnt = MEMORYUPDATE_UPCNT_START;
 }
 
+
+uint8_t get_key_code(void)
+{
+	uint8_t keycode = 0;
+	uint8_t i = 0, j = 0;
+	
+	keycode = bsp_GetKey();
+	
+	if(keycode != KEY_NONE)
+	{
+		i = (keycode - 1) / 3;																					//键值
+		j = (keycode - 1) % 3;																					//键状态，0--按下 1--弹起 2--长按
+		if(j == 0 && i < KEY_NUMBER)
+		{
+			return i;
+		}
+		else
+		{
+			return KEY_NONE;
+		}
+	}
+	else
+	{
+		return KEY_NONE;
+	}	
+}
+
+
 /********************************************************************
 *	功能	：	按键轮询
 ******************************************************************************/
@@ -702,8 +736,74 @@ void Manual_Poll(void)
 					UO_Update(UPDATE_ALL);
 					UserOperation.Update = UO_UPDATE_VALID;
 					
-					Process_COMMAND_START();												//开始运行
+					//Process_COMMAND_START();												//开始运行
 					
+					
+					if(UserOperation.bVC == SELECT_VC_V)
+					{
+						log_info("BTN_SINGLETRIGGER Mode Voltage,Ampl=%d\r\n",pPwmArrayParam[DO_TIM4]->Ampl);
+						if(pPwmArrayParam[DO_TIM4]->Ampl > SAFE_VOLTAGE)
+						{
+							is_exceed_human_safety = 1;
+							log_info("Exceeding safe voltage\r\n");
+						}
+						else
+						{
+							is_exceed_human_safety = 0;
+						}
+					}
+					else
+					{
+						log_info("BTN_SINGLETRIGGER Mode Current,Ampl=%d\r\n",pPwmArrayParam[DO_TIM4]->Ampl);
+						if(pPwmArrayParam[DO_TIM4]->Ampl > SAFE_CURRENT)
+						{
+							is_exceed_human_safety = 1;
+							log_info("Exceeding safe current\r\n");
+						}
+						else
+						{
+							is_exceed_human_safety = 0;
+						}
+					}
+					
+					if(is_exceed_human_safety == 0)										//如果参数符合安全值，则直接输出
+					{
+						Process_COMMAND_START();
+						//LedShortOn.fSinggleTrigger = LEDSHORTON_BEGIN;
+					}
+					else																//如果参数不符合安全值，则进行弹窗提醒
+					{
+						uint8_t key_code=KEY_NONE;
+						
+						is_refash_warn =0;
+						while(1)
+						{
+							//检测BTN_SINGLETRIGGER和PAUSE按键，按下BTN_SINGLETRIGGER按键，继续输出，按下PAUSE按键，退出输出
+							WDG_Feed();
+							key_code = get_key_code();
+							//log_info("get_key_code:0x%x\r\n",key_code);
+							
+							if( key_code == BTN_RUN )
+							{
+								
+								UI.fFlush = FLUSH_START;
+								Process_COMMAND_START();
+								//LedShortOn.fSinggleTrigger = LEDSHORTON_BEGIN;
+								break;
+							}
+							else if( key_code == BTN_PAUSE )
+							{
+								UI.fFlush = FLUSH_START;
+								break;
+							}
+							
+							if(is_refash_warn ==0)
+							{
+								is_refash_warn = 1;
+								UI_Poll(ENABLE_WARNING);	//显示告警信息
+							}
+						}
+					}
 				}
 				else if(DOState.Status[DO_TIM4] != DOSTATE_STATUS_COMPLETE)					//运行完成
 				{
@@ -773,10 +873,77 @@ void Manual_Poll(void)
 					
 					//1:打开输出并设置定时器，2：定时器到到设定时间则关闭输出
 					Process_COMMAND_START();
-					
 					LedShortOn.fSinggleTrigger = LEDSHORTON_BEGIN;
+					/*
+					if(UserOperation.bVC == SELECT_VC_V)
+					{
+						log_info("BTN_SINGLETRIGGER Mode Voltage,Ampl=%d\r\n",pPwmArrayParam[DO_TIM4]->Ampl);
+						if(pPwmArrayParam[DO_TIM4]->Ampl > SAFE_VOLTAGE)
+						{
+							is_exceed_human_safety = 1;
+							log_info("Exceeding safe voltage\r\n");
+						}
+						else
+						{
+							is_exceed_human_safety = 0;
+						}
+					}
+					else
+					{
+						log_info("BTN_SINGLETRIGGER Mode Current,Ampl=%d\r\n",pPwmArrayParam[DO_TIM4]->Ampl);
+						if(pPwmArrayParam[DO_TIM4]->Ampl > SAFE_CURRENT)
+						{
+							is_exceed_human_safety = 1;
+							log_info("Exceeding safe current\r\n");
+						}
+						else
+						{
+							is_exceed_human_safety = 0;
+						}
+					}
+					
+					if(is_exceed_human_safety == 0)										//如果参数符合安全值，则直接输出
+					{
+						Process_COMMAND_START();
+						LedShortOn.fSinggleTrigger = LEDSHORTON_BEGIN;
+					}
+					else																//如果参数不符合安全值，则进行弹窗提醒
+					{
+						uint8_t key_code=KEY_NONE;
+						
+						is_refash_warn =0;
+						while(1)
+						{
+							//检测BTN_SINGLETRIGGER和PAUSE按键，按下BTN_SINGLETRIGGER按键，继续输出，按下PAUSE按键，退出输出
+							WDG_Feed();
+							key_code = get_key_code();
+							//log_info("get_key_code:0x%x\r\n",key_code);
+							
+							if( key_code == BTN_SINGLETRIGGER )
+							{
+								
+								UI.fFlush = FLUSH_START;
+								Process_COMMAND_START();
+								LedShortOn.fSinggleTrigger = LEDSHORTON_BEGIN;
+								break;
+							}
+							else if( key_code == BTN_PAUSE )
+							{
+								UI.fFlush = FLUSH_START;
+								break;
+							}
+							
+							if(is_refash_warn ==0)
+							{
+								is_refash_warn = 1;
+								UI_Poll(ENABLE_WARNING);	//显示告警信息
+							}
+						}
+						
+					}
+					*/
+					
 				}
-				else{}
 			}
 /*******************************************************************	
 *

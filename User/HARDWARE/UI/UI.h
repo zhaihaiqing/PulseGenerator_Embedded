@@ -326,6 +326,6 @@ extern sUserInterface_t UI;
 
 void UI_DeskTopInit(void);
 void ParamEdit_RefreshPre(void);
-void UI_Poll(void);
+void UI_Poll(uint8_t is_display_warning);
 
 #endif

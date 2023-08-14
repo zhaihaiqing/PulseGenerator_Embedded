@@ -48,6 +48,11 @@
 #define PULSE_LOWER_LIMIT	(20 *1000)	//10uS
 
 
+#define SAFE_VOLTAGE 	36000000	//定义安全电压36V
+#define SAFE_CURRENT 	10000000	//定义安全电压10mA
+
+#define ENABLE_WARNING	1
+#define DISABLE_WARNING	0
 
 
 extern uint64_t Ceiling[4];
@@ -274,6 +279,7 @@ extern uint8_t Wave_type;
 //extern uint64_t bnc_pluse;
 
 extern sUserOperation_t UserOperation;
+
 
 void SettingInfo_Modify(uint8_t btn_value);
 void Manual_Poll(void);

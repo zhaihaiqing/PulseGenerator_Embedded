@@ -40,10 +40,6 @@ static void StatusBar_Progress(uint8_t status)
 	else{}
 }
 
-//static uint32_t temp_runcnt = 0;																//运行时间暂存
-//static uint16_t Tbl_Temp_CCRx[8] = {0};
-//static uint16_t Tbl_Temp_CNT[8]  = {0};
-
 __IO uint32_t tim5_arr=0;
 __IO uint32_t train_count=0;	//TRAIN模式计数器，
 __IO uint32_t train_acount=0;	//TRAIN模式需要计数的总数，例如：10S，Freq=10Hz，则总数=10*10=100个，注意，末尾不满1的舍去
@@ -53,25 +49,21 @@ __IO uint32_t pluse_Compensate=0;
 ******************************************************************************/
 uint8_t  Process_COMMAND_START(void)
 {
-	if(UserOperation.fMode == UO_MODE_SINGLE)	//单次模式
+	if(UserOperation.fMode == UO_MODE_SINGLE)	/* 单次模式 */
 	{
-		
 		uint64_t pulse=0;
 		
 		//计算tim5_arr值
 		if(UserOperation.bVC == SELECT_VC_V)
 		{
 			pulse = UserOperation.V_ModeSingle.Param[UO_PARAM_PULSE];	//单位为ns
-			if(pulse < 200000)pluse_Compensate = pulse;	//如果小于0.2ms,则执行
-			else{}
+			if(pulse < 200000)pluse_Compensate = pulse;					//如果小于0.2ms,则执行
 		}
 		else if(UserOperation.bVC == SELECT_VC_C)
 		{
 			pulse = UserOperation.C_ModeSingle.Param[UO_PARAM_PULSE];	//单位为ns
-			if(pulse < 200000)pluse_Compensate = pulse;	//如果小于0.2ms,则执行
-			else{}
+			if(pulse < 200000)pluse_Compensate = pulse;					//如果小于0.2ms,则执行
 		}
-		else{}
 		
 		if( ( (Wave_type == 0) || (Wave_type == 1)) && (pulse < (PULSE_LOWER_LIMIT/2) ) ) return 1;
 		if( ( (Wave_type == 2) || (Wave_type == 3)) && (pulse < (PULSE_LOWER_LIMIT) ) ) return 1;
@@ -91,7 +83,7 @@ uint8_t  Process_COMMAND_START(void)
 		SW_CV_OUTPUT = 1;   //打开输出
 		pLEDOUTPUT = LED_DIRECTLY_ON;
 		Delay_ms(15);		//等待继电器闭合
-		log_info("SINGLETRIGGER Mode,SW_CV_OUTPUT = 1,Wave_type=%d,tim5_arr=%d\r\n",Wave_type,tim5_arr);
+		log_info("SINGLETRIGGER Mode,SW_CV_OUTPUT = 1,Wave_type=%d,tim5_arr=%d\r\n",Wave_type,tim5_arr);		
 		
 		DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
 		Enable_Timer5(tim5_arr);

@@ -1534,7 +1534,6 @@ static void UI_DisplayFlush(void)
 	{
 		UI.fFlush = FLUSH_ING;
 	}
-	else{}
 	
 	/*		V/C	显示区		*/
 	if(strcmp((char*)UI.Str_PG1_VC_Cur, (char*)UI.Str_PG1_VC_Pre) || UI.fFlush == FLUSH_ING)
@@ -1879,17 +1878,24 @@ void UI_DeskTopInit(void)
 /********************************************************************
 *	功能	：	用户交互界面
 ******************************************************************************/
-void UI_Poll(void)
+void UI_Poll(uint8_t is_display_warning)
 {
 	static uint8_t firstin = 0;
 	
 	UI_ContentScan();				//实时更新各显示内容
 	UI_DisplayFlush();				//对有变化内容进行刷新显示
-	
 	if(firstin == 0)
 	{
 		LCD_SSD_BackLightSet(100);//背光设置为最亮100
 		firstin = 1;
 	}
-	else{}
+	
+	if(is_display_warning == ENABLE_WARNING)
+	{
+		LCD_Fill(200, 52, 430, 193, COLOR_DESKTOP);
+		LCD_ShowString_WithColor(270, 66, 360, 176, 24, "Warning",COLOR_DESKTOP,COLOR_RUN_AREA_RUNNING);
+		LCD_ShowString_WithColor(220, 110, 430, 190, 16, "Exceed the safe value",COLOR_DESKTOP,COLOR_RUN_AREA_RUNNING);
+		LCD_ShowString_WithColor(220, 138, 430, 190, 16, "Continue:Press RUN",COLOR_DESKTOP,COLOR_RUN_AREA_RUNNING);
+		LCD_ShowString_WithColor(220, 166, 430, 190, 16, "Cancel:Press PAUSE",COLOR_DESKTOP,COLOR_RUN_AREA_RUNNING);	
+	}	
 }

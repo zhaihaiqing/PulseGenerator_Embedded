@@ -462,6 +462,13 @@ int main(void)
 	Init_Devices();
 	
 	
+	
+	while(1)
+	{
+		Manual_Poll();
+		UI_Poll(DISABLE_WARNING);
+		WDG_Feed();
+	}
 
 //#if 1
 //	
@@ -517,7 +524,7 @@ int main(void)
 		{
 			UI_TASK_POLL_FLAG = 0;
 			
-			UI_Poll();
+			UI_Poll(DISABLE_WARNING);
 			WDG_Feed();			
 			//log_info("UI_TASK_POLL_FLAG:%d\r\n",UI_TASK_POLL_FLAG);
 		}
