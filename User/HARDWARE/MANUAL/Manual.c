@@ -964,6 +964,8 @@ void Manual_Poll(void)
 					Process_COMMAND_STOP();
 				}
 				
+				
+				
 				UserOperation.bVC = !UserOperation.bVC;
 				
 				LedShortOn.fVC = LEDSHORTON_BEGIN;
@@ -1014,7 +1016,7 @@ void Manual_Poll(void)
 					}
 				}
 				else
-				{
+				{		
 					Switch.ModeCur &= ~(1 << MODE_BIT_VC);
 					Switch.ModeCur &= SELECT_VC_C << MODE_BIT_VC;
 					
@@ -1044,6 +1046,7 @@ void Manual_Poll(void)
 						case UO_MODE_EXTBNC:
 							UserOperation.fUnitCur	= UserOperation.C_ModeExtBnc.fUnit;
 							pLEDEXTBNC				= LED_SN74HC240_ON;
+							
 							break;
 						
 						default:
@@ -1286,6 +1289,12 @@ void Manual_Poll(void)
 				}
 				
 				SW_CV_OUTPUT = 1;			//进入BNC模式后，打开继电器
+				Delay_ms(10);
+				if(UserOperation.bVC == SELECT_VC_C)
+				{
+					EN_C_OP();
+					Delay_ms(10);
+				}
 				
 				//收到上升沿脉冲后开始输出信号，打开LED指示灯
 				

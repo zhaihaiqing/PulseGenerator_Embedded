@@ -105,6 +105,10 @@ void TIM5_IRQHandler(void)
 			{
 				SW_CV_OUTPUT = 0;   //关闭输出
 				pLEDOUTPUT = LED_DIRECTLY_OFF;
+				if(UserOperation.bVC == SELECT_VC_C)
+				{
+					DIS_C_OP();
+				}
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
 			}
 		}
@@ -166,6 +170,10 @@ void TIM5_IRQHandler(void)
 					{
 						SW_CV_OUTPUT = 0;   //关闭输出						
 						pLEDOUTPUT = LED_DIRECTLY_OFF;
+						if(UserOperation.bVC == SELECT_VC_C)
+						{
+							DIS_C_OP();
+						}
 						DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
 					}
 				}

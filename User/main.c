@@ -79,6 +79,8 @@ void IO_Init()
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);//使能GPIOE时钟
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);//使能GPIOE时钟
 	
+	DIS_C_OP();
+	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_15;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
@@ -159,6 +161,8 @@ void IO_Init()
 	pLEDFREQUENCY		= 1;
 	pLEDDURATION		= 1;
 	pLEDVC				= 1;
+	
+	DIS_C_OP();
 	
 	
 }
@@ -463,56 +467,16 @@ int main(void)
 	
 	
 	
-	while(1)
-	{
-		Manual_Poll();
-		UI_Poll(DISABLE_WARNING);
-		WDG_Feed();
-	}
-
-//#if 1
-//	
+//	while(1)
 //	{
-//		int32_t xx=0;
-//		
-//		while(1)
-//		{
-//			AD5542_Output(DA_CHNL_VOLT, 0);
-//			__nop();
-//			__nop();
-//			
-//			AD5542_Output(DA_CHNL_VOLT, 3300);
-//			__nop();
-//			__nop();
-//			
-////			AD5542_Output(DA_CHNL_VOLT, xx);
-////			xx += 100;
-////			if(xx>3300) xx = -3300;
-//			WDG_Feed();
-////			Delay_ms(50);
-//			//log_info("123\r\n");
-//		}
+//		Manual_Poll();
+//		UI_Poll(DISABLE_WARNING);
+//		WDG_Feed();
 //	}
 
-//#else
-//	
-//	{
-//		int32_t xx=0;
-//		
-//		SPI1_Configuration();
-//		//Delay_ms(50);
-//		while(1)
-//		{
-//			WDG_Feed();
-//			AD5542_HSPI_WriteA(xx);
-//			xx += 100;
-//			if(xx>3300) xx = -3300;
-//			Delay_ms(50);
-//		}
-//	}
-//	
-//#endif
-     
+    
+	//TEST_SW_CV_Ploar_H();	
+	
 	/* Infinite loop */
 	while (1)
 	{

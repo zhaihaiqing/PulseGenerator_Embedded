@@ -43,6 +43,13 @@ void Switch_Ctrl(uint8_t phase)
 				log_info("SW Mode to Voltage, Positive voltage!\r\n");
 				
 				pLEDVC				= 0;
+				
+				if(UserOperation.fMode == UO_MODE_EXTBNC)
+				{
+					DIS_C_OP();
+					Delay_ms(30);
+				}
+				
 				SW_CV_MODE = 0;     //切换为电压模式
 				AD5542_Output(DA_CHNL_CURR,0);//将电流通道DAC设置为0
 			}
@@ -53,7 +60,23 @@ void Switch_Ctrl(uint8_t phase)
 				//Current_Ploar_Flag	=	0;
 				log_info("SW Mode to Current, Positive current!\r\n");
 				pLEDVC				= 1;
+				
+				if(UserOperation.fMode == UO_MODE_EXTBNC)
+				{
+					DIS_C_OP();
+					Delay_ms(30);
+				}
+				
 				SW_CV_MODE = 1;       //切换为电流模式
+				Delay_ms(10);
+				
+				if(UserOperation.fMode == UO_MODE_EXTBNC)
+				{
+					EN_C_OP();
+					Delay_ms(10);
+				}
+				
+				
 				AD5542_Output(DA_CHNL_VOLT,0);//将电压通道DAC设置为0
 				
 			}
@@ -68,6 +91,11 @@ void Switch_Ctrl(uint8_t phase)
 				log_info("SW Mode to Voltage, Negative voltage!\r\n");
 				pLEDVC				= 0;
 				SW_CV_MODE = 0 ;				//切换为电压模式
+				if(UserOperation.fMode == UO_MODE_EXTBNC)
+				{
+					DIS_C_OP();
+					Delay_ms(30);
+				}
 				AD5542_Output(DA_CHNL_CURR,0);//将电流通道DAC设置为0
 			}
 			else
@@ -77,7 +105,22 @@ void Switch_Ctrl(uint8_t phase)
 				//Current_Ploar_Flag	=	1;
 				log_info("SW Mode to Current, Negative current!\r\n");
 				pLEDVC	   = 1;
-				SW_CV_MODE = 1 ;			 //切换为电流模式
+				
+				if(UserOperation.fMode == UO_MODE_EXTBNC)
+				{
+					DIS_C_OP();
+					Delay_ms(30);
+				}
+				
+				SW_CV_MODE = 1;       //切换为电流模式
+				Delay_ms(10);
+				
+				if(UserOperation.fMode == UO_MODE_EXTBNC)
+				{
+					EN_C_OP();
+					Delay_ms(10);
+				}
+				
 				AD5542_Output(DA_CHNL_VOLT,0);//将电压通道DAC设置为0
 			}
 		}

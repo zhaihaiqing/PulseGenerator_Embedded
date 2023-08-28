@@ -115,6 +115,8 @@
 #define TEST_SW_CV_Ploar_H()	GPIOA->BSRRL = GPIO_Pin_15
 #define TEST_SW_CV_Ploar_L()	GPIOA->BSRRH = GPIO_Pin_15
 
+#define EN_C_OP()				GPIOA->BSRRL = GPIO_Pin_15
+#define DIS_C_OP()				GPIOA->BSRRH = GPIO_Pin_15
 
 typedef enum{
 	STM32F0,

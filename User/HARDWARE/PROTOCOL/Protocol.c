@@ -80,10 +80,17 @@ uint8_t  Process_COMMAND_START(void)
 			tim5_arr = tim5_arr+TIM5_ARR_Compensate2;
 		}
 		
-		SW_CV_OUTPUT = 1;   //打开输出
+		SW_CV_OUTPUT = 1;   //打开输出继电器
 		pLEDOUTPUT = LED_DIRECTLY_ON;
-		Delay_ms(15);		//等待继电器闭合
-		log_info("SINGLETRIGGER Mode,SW_CV_OUTPUT = 1,Wave_type=%d,tim5_arr=%d\r\n",Wave_type,tim5_arr);		
+		Delay_ms(10);		//等待继电器闭合
+		
+		if(UserOperation.bVC == SELECT_VC_C)
+		{
+			EN_C_OP();
+			Delay_ms(10);
+		}
+		
+		//log_info("SINGLETRIGGER Mode,SW_CV_OUTPUT = 1,Wave_type=%d,tim5_arr=%d\r\n",Wave_type,tim5_arr);		
 		
 		DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
 		Enable_Timer5(tim5_arr);
@@ -142,7 +149,12 @@ uint8_t  Process_COMMAND_START(void)
 			
 			SW_CV_OUTPUT = 1;   //打开输出
 			pLEDOUTPUT = LED_DIRECTLY_ON;
-			Delay_ms(15);		//等待继电器闭合
+			Delay_ms(10);		//等待继电器闭合
+			if(UserOperation.bVC == SELECT_VC_C)
+			{
+				EN_C_OP();
+				Delay_ms(10);
+			}
 			
 			Timer2_Init(tim2_arr,tim2_psc);
 			DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
@@ -213,7 +225,12 @@ uint8_t  Process_COMMAND_START(void)
 			
 			SW_CV_OUTPUT = 1;   //打开输出
 			pLEDOUTPUT = LED_DIRECTLY_ON;
-			Delay_ms(15);		//等待继电器闭合
+			Delay_ms(10);		//等待继电器闭合
+			if(UserOperation.bVC == SELECT_VC_C)
+			{
+				EN_C_OP();
+				Delay_ms(10);
+			}
 			//log_info("UO_MODE_TRAIN Mode,SW_CV_OUTPUT = 1,Wave_type=%d,tim5_arr=%d\r\n",Wave_type,tim5_arr);
 			
 			Timer2_Init(tim2_arr,tim2_psc);
@@ -232,6 +249,11 @@ void Process_COMMAND_STOP(void)
 	Disable_Timer5();
 	TIM_Cmd(TIM2,DISABLE);
 	TIM2->CNT = 0;
+	
+	if(UserOperation.bVC == SELECT_VC_C)
+	{
+		DIS_C_OP();
+	}
 	
 	train_acount = 0;
 	train_count = 0;
