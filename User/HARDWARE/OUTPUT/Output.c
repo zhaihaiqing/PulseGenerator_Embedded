@@ -20,11 +20,11 @@ void Output_VorC(uint8_t select_vc, int32_t ampl, uint8_t IsEnable)
 			{
 				//log_info("OUTPUT_ENABLE  Voltage amp=%d,%d\r\n",ampl,ampl / 25000);
 				
-				AD5542_Output(DA_CHNL_VOLT, ampl / 25000 );					//(value/VALUE_EXPAND_105--V)*1000--DAC REGISTER，调整计算顺序，否则超限溢出，输出正极性
+				AD5542_Output(DA_CHNL_VOLT, ampl / 26000 );					//(value/VALUE_EXPAND_105--V)*1000--DAC REGISTER，调整计算顺序，否则超限溢出，输出正极性
 			}
 			else
 			{
-				AD5542_Output(DA_CHNL_VOLT, 0 - ampl / 25000);	//输出负极性
+				AD5542_Output(DA_CHNL_VOLT, 0 - ampl / 26000);	//输出负极性
 			}
 		}
 		else if(select_vc == SELECT_VC_C)

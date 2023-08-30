@@ -1141,8 +1141,9 @@ void LCD_Init(void)
 		LCD_WR_DATA(0X01);	//GPIO[1:0]=01,控制LCD方向
 		
 		LCD_SSD_BackLightSet(0);//背光设置为最亮100
-	}
-	else{}	
+		Delay_ms(200);
+		LCD_SSD_BackLightSet(0);//背光设置为最亮100
+	}	
 	LCD_Display_Dir(1);		//默认为竖屏0
 	LCD_Clear(COLOR_DESKTOP);
 }
