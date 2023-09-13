@@ -65,3 +65,5 @@
 .\output\key.o: .\User\HARDWARE\UI\UI.h
 .\output\key.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\key.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\key.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\key.o: .\User\HARDWARE\temp_fan.h

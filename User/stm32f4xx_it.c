@@ -162,12 +162,11 @@ void SysTick_Handler(void)
 	{
 		LED1_ON();
 	}
-	else if(SysTick_Count==705)
+	else if(SysTick_Count>=705)
 	{
 		LED1_OFF();
 		SysTick_Count=0;
-	}
-	else{}	
+	}	
 }
 
 /******************************************************************************/

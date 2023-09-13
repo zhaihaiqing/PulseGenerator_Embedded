@@ -65,3 +65,5 @@
 .\output\beep.o: .\User\HARDWARE\UI\UI.h
 .\output\beep.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\beep.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\beep.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\beep.o: .\User\HARDWARE\temp_fan.h

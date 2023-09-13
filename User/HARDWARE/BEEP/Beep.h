@@ -15,8 +15,8 @@
 
 extern uint8_t bFlag_Beep;		//¹ýÁ÷±¨¾¯
 
-//#define BEEPCTRL	PAin(1)
-#define BEEP 		PBout(5)
+//#define BEEPCTRL	PFin(11)
+#define BEEP 		PGout(5)
 
 #define BEEPCTRL_EN	0
 #define BEEPCTRL_UN	1

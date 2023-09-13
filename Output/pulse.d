@@ -65,3 +65,5 @@
 .\output\pulse.o: .\User\HARDWARE\UI\UI.h
 .\output\pulse.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\pulse.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\pulse.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\pulse.o: .\User\HARDWARE\temp_fan.h

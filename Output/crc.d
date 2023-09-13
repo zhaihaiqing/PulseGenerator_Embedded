@@ -65,3 +65,5 @@
 .\output\crc.o: .\User\HARDWARE\UI\UI.h
 .\output\crc.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\crc.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\crc.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\crc.o: .\User\HARDWARE\temp_fan.h

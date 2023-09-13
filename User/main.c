@@ -136,7 +136,7 @@ void IO_Init()
 	GPIO_Init(GPIOE, &GPIO_InitStructure);//初始化
 	
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_15;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
@@ -364,6 +364,9 @@ void Init_Devices(void)
 	Switch_Init();
 	//pLEDOUTPUT=1;
 	WDG_Feed();
+	i2cb_port_init();
+	Timer9_PWM_Init(0);
+	Timer9_PWM_OC1_Enable();
 	
 	LCDRST_Init();
 	WDG_Feed();
@@ -446,13 +449,6 @@ void Init_Devices(void)
 
 
 
-
-
-
-
-
-
-
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -463,23 +459,43 @@ void Init_Devices(void)
 
 int main(void)
 {	
+	float temp = 0;
 	Init_Devices();
 	
-	
-	
-//	while(1)
-//	{
-//		Manual_Poll();
-//		UI_Poll(DISABLE_WARNING);
-//		WDG_Feed();
-//	}
-
-    
-	//TEST_SW_CV_Ploar_H();	
+	WDG_Feed();
+	Timer9_PWM_OC1_SetDuty(60);
+	Delay_ms(400);				//延时400ms，避免低占空比下，风扇不启动
+	WDG_Feed();
 	
 	/* Infinite loop */
 	while (1)
 	{
+		if(SysTick_Count == 0) 
+		{
+			temp = get_temp();
+			
+			if(temp > 60)
+			{
+				Timer9_PWM_OC1_SetDuty(100);
+			}
+			else if(temp > 55)
+			{
+				Timer9_PWM_OC1_SetDuty(80);
+			}
+			else if(temp > 50)
+			{
+				Timer9_PWM_OC1_SetDuty(60);
+			}
+			else if(temp > 45)
+			{
+				Timer9_PWM_OC1_SetDuty(45);
+			}
+			else
+			{
+				Timer9_PWM_OC1_SetDuty(25);
+			}
+		}
+			
 		Manual_Poll();
 		WDG_Feed();
 		Memory_Poll();

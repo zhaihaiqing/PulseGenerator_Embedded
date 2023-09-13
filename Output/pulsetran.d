@@ -65,3 +65,5 @@
 .\output\pulsetran.o: .\User\HARDWARE\UI\UI.h
 .\output\pulsetran.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\pulsetran.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\pulsetran.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\pulsetran.o: .\User\HARDWARE\temp_fan.h

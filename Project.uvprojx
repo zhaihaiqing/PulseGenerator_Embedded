@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F40_41xxx</Define>
               <Undefine></Undefine>
-              <IncludePath>.\CMSIS;.\FWlib\inc;.\FWlib\src;.\User;.\User\SYSTEM;.\User\HARDWARE\ADC;.\User\HARDWARE\AT24C64;.\User\HARDWARE\BEEP;.\User\HARDWARE\CODEC;.\User\HARDWARE\CRC;.\User\HARDWARE\DAC;.\User\HARDWARE\INPUT;.\User\HARDWARE\KEY;.\User\HARDWARE\LED;.\User\HARDWARE\MALLOC;.\User\HARDWARE\MANUAL;.\User\HARDWARE\OUTPUT;.\User\HARDWARE\PROTOCOL;.\User\HARDWARE\PULSE;.\User\HARDWARE\PULSETRAN;.\User\HARDWARE\PWM;.\User\HARDWARE\SSD1961;.\User\HARDWARE\SWITCH;.\User\HARDWARE\TIMER;.\User\HARDWARE\UI;.\User\HARDWARE\USART;.\User\HARDWARE\WDG</IncludePath>
+              <IncludePath>.\CMSIS;.\FWlib\inc;.\FWlib\src;.\User;.\User\SYSTEM;.\User\HARDWARE\ADC;.\User\HARDWARE\AT24C64;.\User\HARDWARE\BEEP;.\User\HARDWARE\CODEC;.\User\HARDWARE\CRC;.\User\HARDWARE\DAC;.\User\HARDWARE\INPUT;.\User\HARDWARE\KEY;.\User\HARDWARE\LED;.\User\HARDWARE\MALLOC;.\User\HARDWARE\MANUAL;.\User\HARDWARE\OUTPUT;.\User\HARDWARE\PROTOCOL;.\User\HARDWARE\PULSE;.\User\HARDWARE\PULSETRAN;.\User\HARDWARE\PWM;.\User\HARDWARE\SSD1961;.\User\HARDWARE\SWITCH;.\User\HARDWARE\TIMER;.\User\HARDWARE\UI;.\User\HARDWARE\USART;.\User\HARDWARE\WDG;.\User\HARDWARE</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -512,6 +512,16 @@
               <FileName>Wdg.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\User\HARDWARE\WDG\Wdg.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2cb_port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\HARDWARE\bsp_i2cb_port.c</FilePath>
+            </File>
+            <File>
+              <FileName>temp_fan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\HARDWARE\temp_fan.c</FilePath>
             </File>
           </Files>
         </Group>

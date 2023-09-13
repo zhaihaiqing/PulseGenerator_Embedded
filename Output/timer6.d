@@ -65,3 +65,5 @@
 .\output\timer6.o: .\User\HARDWARE\UI\UI.h
 .\output\timer6.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\timer6.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\timer6.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\timer6.o: .\User\HARDWARE\temp_fan.h

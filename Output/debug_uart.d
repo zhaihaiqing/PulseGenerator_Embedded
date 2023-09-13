@@ -66,3 +66,5 @@
 .\output\debug_uart.o: .\User\HARDWARE\UI\UI.h
 .\output\debug_uart.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\debug_uart.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\debug_uart.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\debug_uart.o: .\User\HARDWARE\temp_fan.h

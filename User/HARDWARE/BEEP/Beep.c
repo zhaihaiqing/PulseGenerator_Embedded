@@ -27,7 +27,7 @@ void Beep_Init(void)
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
 	//GPIO_Init(GPIOF, &GPIO_InitStructure);//初始化
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
 	GPIO_Init(GPIOG, &GPIO_InitStructure);//初始化
 	
 }

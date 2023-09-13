@@ -65,3 +65,5 @@
 .\output\malloc.o: .\User\HARDWARE\UI\UI.h
 .\output\malloc.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\malloc.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\malloc.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\malloc.o: .\User\HARDWARE\temp_fan.h

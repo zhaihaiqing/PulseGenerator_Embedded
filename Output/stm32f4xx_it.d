@@ -66,3 +66,5 @@
 .\output\stm32f4xx_it.o: .\User\HARDWARE\UI\UI.h
 .\output\stm32f4xx_it.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\stm32f4xx_it.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\stm32f4xx_it.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\stm32f4xx_it.o: .\User\HARDWARE\temp_fan.h

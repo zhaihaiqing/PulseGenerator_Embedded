@@ -65,3 +65,5 @@
 .\output\at24c64iic.o: .\User\HARDWARE\UI\UI.h
 .\output\at24c64iic.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\at24c64iic.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\at24c64iic.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\at24c64iic.o: .\User\HARDWARE\temp_fan.h

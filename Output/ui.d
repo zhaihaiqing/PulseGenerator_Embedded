@@ -65,3 +65,5 @@
 .\output\ui.o: .\User\HARDWARE\UI\UI.h
 .\output\ui.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\ui.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\ui.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\ui.o: .\User\HARDWARE\temp_fan.h

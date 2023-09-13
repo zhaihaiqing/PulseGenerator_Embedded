@@ -65,6 +65,8 @@
 #include "UI.h"
 #include "Output.h"
 #include "Wdg.h"
+#include "bsp_i2cb_port.h"
+#include "temp_fan.h"
 
 
 
@@ -78,7 +80,7 @@
 #define PCB_V16			16			//杨工改进输出幅值版本
 #define PCB_VERSION		PCB_V15
 
-#define SOFTWARE_VERSION 0x030201		//版本号采用3位管理，xx.xx.xx
+#define SOFTWARE_VERSION 0x030301		//版本号采用3位管理，xx.xx.xx
 
 #define LZG_WFC			0xff
 
@@ -108,15 +110,15 @@
 #define APOW_ON()	GPIOF->BSRRL = GPIO_Pin_3
 #define APOW_OFF()	GPIOF->BSRRH = GPIO_Pin_3
 
-#define LCD_RST_H()	GPIOE->BSRRL = GPIO_Pin_5
-#define LCD_RST_L()	GPIOE->BSRRH = GPIO_Pin_5
+#define LCD_RST_H()	GPIOG->BSRRL = GPIO_Pin_3
+#define LCD_RST_L()	GPIOG->BSRRH = GPIO_Pin_3
 
 
 #define TEST_SW_CV_Ploar_H()	GPIOA->BSRRL = GPIO_Pin_15
 #define TEST_SW_CV_Ploar_L()	GPIOA->BSRRH = GPIO_Pin_15
 
-#define EN_C_OP()				GPIOA->BSRRL = GPIO_Pin_15
-#define DIS_C_OP()				GPIOA->BSRRH = GPIO_Pin_15
+#define EN_C_OP()				GPIOF->BSRRL = GPIO_Pin_15
+#define DIS_C_OP()				GPIOF->BSRRH = GPIO_Pin_15
 
 typedef enum{
 	STM32F0,

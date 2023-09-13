@@ -24,6 +24,8 @@
 ".\output\protocol.o"
 ".\output\ssd1961.o"
 ".\output\wdg.o"
+".\output\bsp_i2cb_port.o"
+".\output\temp_fan.o"
 ".\output\delay.o"
 ".\output\sys.o"
 ".\output\debug_uart.o"

@@ -65,4 +65,6 @@
 .\output\ssd1961.o: .\User\HARDWARE\UI\UI.h
 .\output\ssd1961.o: .\User\HARDWARE\OUTPUT\Output.h
 .\output\ssd1961.o: .\User\HARDWARE\WDG\Wdg.h
+.\output\ssd1961.o: .\User\HARDWARE\bsp_i2cb_port.h
+.\output\ssd1961.o: .\User\HARDWARE\temp_fan.h
 .\output\ssd1961.o: User\HARDWARE\SSD1961\FONT.h
