@@ -33,7 +33,7 @@
 #define VALUE_EXPAND_102	1000			//计算过程中各参数小单位默认小数点后3位有效，故每个参数都扩大1000倍成整数用于显示处理
 
 /*	设置上限，用户设置值超限强制设置为上限值	*/
-#define CEILING_V_AMPLITUDE	(uint64_t)80      *1000000		//uV,±80V
+#define CEILING_V_AMPLITUDE	(uint64_t)95      *1000000		//uV,±80V
 #define CEILING_C_AMPLITUDE	(uint64_t)32       *1000000		//nA,32mA	//[V193]三XTR111最大电流96mA
 #define CEILING_PULSE		(uint64_t)5*60*1000*1000000				//ns,5min
 #define CEILING_FREQUENCY	(uint64_t)40       *1000000000			//mHz,40KHz
