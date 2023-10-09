@@ -696,15 +696,15 @@ void Manual_Poll(void)
 		
 				if(UserOperation.fMode == UO_MODE_SINGLE)														//[V111]，修改输出逻辑，SINGLE模式下，RUN按键无效
 				{
-					if(DOState.Config & (1 << DO_TIM4))															//[V189],修改输出逻辑，SINGLE模式下，RUN按键停止其输出
-					{
-						DOState.Config &= ~(1 << DO_TIM4);
-					}
-					if(DOState.Status[DO_TIM4] != DOSTATE_STATUS_COMPLETE)
-					{
-						Process_COMMAND_STOP();
-				    }
-					
+//					if(DOState.Config & (1 << DO_TIM4))															//[V189],修改输出逻辑，SINGLE模式下，RUN按键停止其输出
+//					{
+//						DOState.Config &= ~(1 << DO_TIM4);
+//					}
+//					if(DOState.Status[DO_TIM4] != DOSTATE_STATUS_COMPLETE)
+//					{
+//						Process_COMMAND_STOP();
+//				    }
+//					
 					return;
 				}
 				
@@ -816,29 +816,37 @@ void Manual_Poll(void)
 			}
 			else if(i == BTN_PAUSE)															//按下暂停键
 			{
-				UserOperation.fParamType = UO_PARAM_NONE;
-				ParamEdit_RefreshPre();
-				
-				Led_ParamPartOff();			
-				
-				if(DOState.Status[DO_TIM4] == DOSTATE_STATUS_RUNNING)		//如果是run状态，按下pause暂停运行
-				{					
-					Process_COMMAND_PAUSE();	
-					
-					Output_VorC(UserOperation.bVC, 0, OUTPUT_DISABLE);			
-					pLEDPAUSE = LED_SN74HC240_ON;
-				}
-				else if(DOState.Status[DO_TIM4] == DOSTATE_STATUS_PAUSE)	//如果是pause状态，按下pause继续运行
-				{					
-					EXTI->IMR    |= 1<<0;
-					
-					Process_COMMAND_CONTINUE();					
-					pLEDPAUSE = LED_SN74HC240_OFF;
-				}
-				else if(DOState.Status[DO_TIM4] == DOSTATE_STATUS_COMPLETE)
+				if(UserOperation.fMode == UO_MODE_SINGLE)			//单次模式，不支持PAUSE
 				{
 					;
 				}
+				else
+				{
+					UserOperation.fParamType = UO_PARAM_NONE;
+					ParamEdit_RefreshPre();
+					
+					Led_ParamPartOff();			
+					
+					if(DOState.Status[DO_TIM4] == DOSTATE_STATUS_RUNNING)		//如果是run状态，按下pause暂停运行
+					{					
+						Process_COMMAND_PAUSE();	
+						
+						Output_VorC(UserOperation.bVC, 0, OUTPUT_DISABLE);			
+						pLEDPAUSE = LED_SN74HC240_ON;
+					}
+					else if(DOState.Status[DO_TIM4] == DOSTATE_STATUS_PAUSE)	//如果是pause状态，按下pause继续运行
+					{					
+						EXTI->IMR    |= 1<<0;
+						
+						Process_COMMAND_CONTINUE();					
+						pLEDPAUSE = LED_SN74HC240_OFF;
+					}
+					else if(DOState.Status[DO_TIM4] == DOSTATE_STATUS_COMPLETE)
+					{
+						;
+					}
+				}
+				
 			}
 			else if(i == BTN_PHASE)															//按下翻转键
 			{
@@ -865,7 +873,7 @@ void Manual_Poll(void)
 				
 				Led_ParamPartOff();
 				
-				if(UserOperation.fMode == UO_MODE_SINGLE)									//如果设备处在单个波形模式，则执行代码，如果处于其他模式，则不理会
+				if((UserOperation.fMode == UO_MODE_SINGLE) && (DOState.Status[DO_TIM4] == DOSTATE_STATUS_COMPLETE))									//如果设备处在单个波形模式，则执行代码，如果处于其他模式，则不理会
 				{					
 					UO_Update(UPDATE_ALL);													//在该函数中计算波形参数，获取参数等
 					UserOperation.Update = UO_UPDATE_VALID;									//设置一些运行状态
@@ -874,6 +882,17 @@ void Manual_Poll(void)
 					//1:打开输出并设置定时器，2：定时器到到设定时间则关闭输出
 					Process_COMMAND_START();
 					LedShortOn.fSinggleTrigger = LEDSHORTON_BEGIN;
+				}
+				else if((UserOperation.fMode == UO_MODE_SINGLE) && (DOState.Status[DO_TIM4] == DOSTATE_STATUS_RUNNING))	
+				{
+					UO_Update(UPDATE_ALL);													//在该函数中计算波形参数，获取参数等
+					UserOperation.Update = UO_UPDATE_VALID;									//设置一些运行状态
+						
+					
+					//1:打开输出并设置定时器，2：定时器到到设定时间则关闭输出
+					Process_COMMAND_STOP();
+					LedShortOn.fSinggleTrigger = LEDSHORTON_END;
+				}
 					/*
 					if(UserOperation.bVC == SELECT_VC_V)
 					{
@@ -943,7 +962,7 @@ void Manual_Poll(void)
 					}
 					*/
 					
-				}
+				
 			}
 /*******************************************************************	
 *

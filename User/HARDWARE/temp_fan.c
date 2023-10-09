@@ -152,7 +152,7 @@ void Timer9_PWM_OC1_Enable(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	/* GPIOA Configuration: Pin_5 */
+	/* GPIO Configuration: Pin_5 */
 	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_5;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;

@@ -463,7 +463,7 @@ int main(void)
 	Init_Devices();
 	
 	WDG_Feed();
-	Timer9_PWM_OC1_SetDuty(60);
+	Timer9_PWM_OC1_SetDuty(80);
 	Delay_ms(400);				//延时400ms，避免低占空比下，风扇不启动
 	WDG_Feed();
 	
@@ -480,19 +480,19 @@ int main(void)
 			}
 			else if(temp > 55)
 			{
-				Timer9_PWM_OC1_SetDuty(80);
+				Timer9_PWM_OC1_SetDuty(90);
 			}
 			else if(temp > 50)
 			{
-				Timer9_PWM_OC1_SetDuty(60);
+				Timer9_PWM_OC1_SetDuty(80);
 			}
 			else if(temp > 45)
 			{
-				Timer9_PWM_OC1_SetDuty(45);
+				Timer9_PWM_OC1_SetDuty(70);
 			}
 			else
 			{
-				Timer9_PWM_OC1_SetDuty(25);
+				Timer9_PWM_OC1_SetDuty(45);
 			}
 		}
 			

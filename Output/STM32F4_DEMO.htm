@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Output\STM32F4_DEMO.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Output\STM32F4_DEMO.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Sep 13 18:05:05 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sun Oct 08 19:04:50 2023
 <BR><P>
 <H3>Maximum Stack Usage =        424 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -149,11 +149,11 @@ Global Symbols
 <P><STRONG><a name="[14c]"></a>WFI_SET</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, sys.o(.emb_text), UNUSED)
 
 <P><STRONG><a name="[120]"></a>INTX_DISABLE</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, sys.o(.emb_text))
-<BR><BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
+<BR><BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
 </UL>
 
 <P><STRONG><a name="[121]"></a>INTX_ENABLE</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, sys.o(.emb_text))
-<BR><BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
+<BR><BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
 </UL>
 
 <P><STRONG><a name="[14d]"></a>MSR_MSP</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, sys.o(.emb_text), UNUSED)
@@ -399,7 +399,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PulseTran_Train
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PulseTran_Single
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PulseTran_FreeRun
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SettingInfo_Modify
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sprintf_value
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
@@ -472,7 +472,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 </UL>
 
 <P><STRONG><a name="[70]"></a>__aeabi_drsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, dadd.o(.text))
@@ -502,7 +502,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer9_PWM_OC1_SetDuty
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer9_PWM_Init
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_RCCCLOCK
@@ -551,7 +551,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 </UL>
 
 <P><STRONG><a name="[79]"></a>__aeabi_d2uiz</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, dfixui.o(.text))
@@ -559,7 +559,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_llsr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer9_PWM_OC1_SetDuty
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer9_PWM_Init
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD5542_WriteB
@@ -689,7 +689,7 @@ Global Symbols
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD5542_WriteA
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Ctrl
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_VorC
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_Devices
 </UL>
@@ -799,7 +799,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Ctrl
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Manual_Poll
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCDRST_Init
@@ -813,7 +813,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
+<BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
 <LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
 </UL>
 
@@ -855,7 +855,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_VorC
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI0_IRQHandler
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 <LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
 
@@ -1141,7 +1141,7 @@ Global Symbols
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteRAM_Prepare
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_DeskTopInit
 <LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_DisplayFlush
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PartialArea_Refresh
@@ -1198,7 +1198,7 @@ Global Symbols
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WR_REG
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WR_DATA
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
 </UL>
 
@@ -1230,7 +1230,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WDG_Feed
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowChar_WithColor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PartialArea_Refresh
 </UL>
 
@@ -1274,7 +1274,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Manual_Poll
 </UL>
 
-<P><STRONG><a name="[df]"></a>Led_ParamPartOff</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, led.o(i.Led_ParamPartOff))
+<P><STRONG><a name="[de]"></a>Led_ParamPartOff</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, led.o(i.Led_ParamPartOff))
 <BR><BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Manual_Poll
 </UL>
 
@@ -1292,26 +1292,26 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_Devices
 </UL>
 
-<P><STRONG><a name="[db]"></a>Manual_Poll</STRONG> (Thumb, 3484 bytes, Stack size 24 bytes, manual.o(i.Manual_Poll))
+<P><STRONG><a name="[db]"></a>Manual_Poll</STRONG> (Thumb, 3510 bytes, Stack size 24 bytes, manual.o(i.Manual_Poll))
 <BR><BR>[Stack]<UL><LI>Max Depth = 304<LI>Call Chain = Manual_Poll &rArr; Process_COMMAND_START &rArr; Enable_Timer5 &rArr; Output_VorC &rArr; AD5542_Output &rArr; AD5542_WriteB &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetKey
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Ctrl
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_PAUSE
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_CONTINUE
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParamEdit_RefreshPre
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParamEdit_RefreshPre
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Output_VorC
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Led_ParamPartOff
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Led_ParamPartOff
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Led_ModePartOff
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;par_check
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_key_code
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_key_code
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SettingInfo_Modify
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SettingInfo_Get
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WDG_Feed
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TriggerExIN23_Init
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TriggerExIN01_Init
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_Write
@@ -1392,7 +1392,7 @@ Global Symbols
 <LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
 </UL>
 
-<P><STRONG><a name="[de]"></a>ParamEdit_RefreshPre</STRONG> (Thumb, 324 bytes, Stack size 8 bytes, ui.o(i.ParamEdit_RefreshPre))
+<P><STRONG><a name="[dd]"></a>ParamEdit_RefreshPre</STRONG> (Thumb, 324 bytes, Stack size 8 bytes, ui.o(i.ParamEdit_RefreshPre))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = ParamEdit_RefreshPre &rArr; __2sprintf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -1419,7 +1419,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Manual_Poll
 </UL>
 
-<P><STRONG><a name="[e1]"></a>Process_COMMAND_START</STRONG> (Thumb, 1444 bytes, Stack size 88 bytes, protocol.o(i.Process_COMMAND_START))
+<P><STRONG><a name="[e0]"></a>Process_COMMAND_START</STRONG> (Thumb, 1444 bytes, Stack size 88 bytes, protocol.o(i.Process_COMMAND_START))
 <BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = Process_COMMAND_START &rArr; Enable_Timer5 &rArr; Output_VorC &rArr; AD5542_Output &rArr; AD5542_WriteB &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_Timer5
@@ -1436,14 +1436,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Manual_Poll
 </UL>
 
-<P><STRONG><a name="[dd]"></a>Process_COMMAND_STOP</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, protocol.o(i.Process_COMMAND_STOP))
+<P><STRONG><a name="[e3]"></a>Process_COMMAND_STOP</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, protocol.o(i.Process_COMMAND_STOP))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = Process_COMMAND_STOP &rArr; AD5542_Output &rArr; AD5542_WriteB &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD5542_Output
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Disable_Timer5
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
+<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Manual_Poll
 <LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
@@ -1457,7 +1457,7 @@ Global Symbols
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PulseTran_Sub_CalcPwmPara
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
+<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
 </UL>
 
 <P><STRONG><a name="[f7]"></a>PulseTran_Single</STRONG> (Thumb, 356 bytes, Stack size 32 bytes, pulsetran.o(i.PulseTran_Single))
@@ -1469,7 +1469,7 @@ Global Symbols
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PulseTran_Sub_CalcPwmPara
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
+<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
 </UL>
 
 <P><STRONG><a name="[fa]"></a>PulseTran_Train</STRONG> (Thumb, 468 bytes, Stack size 40 bytes, pulsetran.o(i.PulseTran_Train))
@@ -1481,7 +1481,7 @@ Global Symbols
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PulseTran_Sub_CalcPwmPara
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
+<BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UO_Update
 </UL>
 
 <P><STRONG><a name="[90]"></a>RCC_AHB1PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd))
@@ -1660,7 +1660,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = TIM2_IRQHandler &rArr; Enable_Timer5 &rArr; Output_VorC &rArr; AD5542_Output &rArr; AD5542_WriteB &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_Timer5
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
 </UL>
@@ -1706,8 +1706,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[9a]"></a>TIM_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f4xx_tim.o(i.TIM_Cmd))
-<BR><BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<BR><BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_PAUSE
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_CONTINUE
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer9_PWM_OC1_Enable
@@ -1760,7 +1760,7 @@ Global Symbols
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITConfig
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 </UL>
 
 <P><STRONG><a name="[c3]"></a>Timer3_Init</STRONG> (Thumb, 88 bytes, Stack size 32 bytes, timer.o(i.Timer3_Init))
@@ -1889,7 +1889,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_Devices
 </UL>
 
-<P><STRONG><a name="[e3]"></a>UI_Poll</STRONG> (Thumb, 194 bytes, Stack size 24 bytes, ui.o(i.UI_Poll))
+<P><STRONG><a name="[e2]"></a>UI_Poll</STRONG> (Thumb, 194 bytes, Stack size 24 bytes, ui.o(i.UI_Poll))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = UI_Poll &rArr; UI_DisplayFlush &rArr; PartialArea_Refresh &rArr; LCD_ShowString_WithColor &rArr; LCD_ShowChar_WithColor &rArr; LCD_Fast_DrawPoint &rArr; WDG_Feed
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString_WithColor
@@ -1902,7 +1902,7 @@ Global Symbols
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e0]"></a>UO_Update</STRONG> (Thumb, 546 bytes, Stack size 8 bytes, trigger.o(i.UO_Update))
+<P><STRONG><a name="[df]"></a>UO_Update</STRONG> (Thumb, 546 bytes, Stack size 8 bytes, trigger.o(i.UO_Update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = UO_Update &rArr; PulseTran_Train &rArr; PulseTran_Sub_CalcPwmPara &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PulseTran_Train
@@ -1910,7 +1910,7 @@ Global Symbols
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PulseTran_FreeRun
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INTX_ENABLE
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INTX_DISABLE
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_STOP
 </UL>
 <BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Manual_Poll
 </UL>
@@ -2038,7 +2038,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Ctrl
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_COMMAND_START
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_eeprom
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_temp
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Memory_Poll
@@ -2068,7 +2068,7 @@ Global Symbols
 <P><STRONG><a name="[ef]"></a>__2sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParamEdit_RefreshPre
+<BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParamEdit_RefreshPre
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ValueDisplay_Control
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_ContentScan
 </UL>
@@ -2097,7 +2097,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[dc]"></a>bsp_GetKey</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, key.o(i.bsp_GetKey))
-<BR><BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_key_code
+<BR><BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_key_code
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Manual_Poll
 </UL>
 
@@ -2162,7 +2162,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_Devices
 </UL>
 
-<P><STRONG><a name="[e2]"></a>get_key_code</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, manual.o(i.get_key_code))
+<P><STRONG><a name="[e1]"></a>get_key_code</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, manual.o(i.get_key_code))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = get_key_code
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_GetKey
@@ -2253,7 +2253,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_temp
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WDG_Feed
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART6_GetChar
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer9_PWM_OC1_SetDuty
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Memory_Poll
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Manual_Poll
@@ -2388,7 +2388,7 @@ Local Symbols
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ValueDisplay_Control
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
 </UL>
 
 <P><STRONG><a name="[11d]"></a>UI_DisplayFlush</STRONG> (Thumb, 2574 bytes, Stack size 24 bytes, ui.o(i.UI_DisplayFlush))
@@ -2399,7 +2399,7 @@ Local Symbols
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
+<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Poll
 </UL>
 
 <P><STRONG><a name="[11c]"></a>ValueDisplay_Control</STRONG> (Thumb, 194 bytes, Stack size 32 bytes, ui.o(i.ValueDisplay_Control))
