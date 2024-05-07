@@ -264,6 +264,7 @@ void Process_COMMAND_STOP(void)
 	AD5542_Output(DA_CHNL_ALL, 0);
 	
 	SW_CV_OUTPUT = 0;//关闭输出
+	pTRIGGER_OUT = 0;
 	pLEDOUTPUT = LED_DIRECTLY_OFF;
 	TIM5_IRQ_Count = 0;	//清除计数器
 }

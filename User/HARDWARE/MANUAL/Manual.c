@@ -700,11 +700,11 @@ void Manual_Poll(void)
 //					{
 //						DOState.Config &= ~(1 << DO_TIM4);
 //					}
-//					if(DOState.Status[DO_TIM4] != DOSTATE_STATUS_COMPLETE)
-//					{
-//						Process_COMMAND_STOP();
-//				    }
-//					
+					if(DOState.Status[DO_TIM4] != DOSTATE_STATUS_COMPLETE)
+					{
+						Process_COMMAND_STOP();
+				    }
+					
 					return;
 				}
 				
@@ -883,16 +883,16 @@ void Manual_Poll(void)
 					Process_COMMAND_START();
 					LedShortOn.fSinggleTrigger = LEDSHORTON_BEGIN;
 				}
-				else if((UserOperation.fMode == UO_MODE_SINGLE) && (DOState.Status[DO_TIM4] == DOSTATE_STATUS_RUNNING))	
-				{
-					UO_Update(UPDATE_ALL);													//在该函数中计算波形参数，获取参数等
-					UserOperation.Update = UO_UPDATE_VALID;									//设置一些运行状态
-						
-					
-					//1:打开输出并设置定时器，2：定时器到到设定时间则关闭输出
-					Process_COMMAND_STOP();
-					LedShortOn.fSinggleTrigger = LEDSHORTON_END;
-				}
+//				else if((UserOperation.fMode == UO_MODE_SINGLE) && (DOState.Status[DO_TIM4] == DOSTATE_STATUS_RUNNING))	
+//				{
+//					UO_Update(UPDATE_ALL);													//在该函数中计算波形参数，获取参数等
+//					UserOperation.Update = UO_UPDATE_VALID;									//设置一些运行状态
+//						
+//					
+//					//1:打开输出并设置定时器，2：定时器到到设定时间则关闭输出
+//					Process_COMMAND_STOP();
+//					LedShortOn.fSinggleTrigger = LEDSHORTON_END;
+//				}
 					/*
 					if(UserOperation.bVC == SELECT_VC_V)
 					{
@@ -977,7 +977,6 @@ void Manual_Poll(void)
 				{
 					DOState.Config &= ~(1 << DO_TIM4);
 				}
-				else{}
 				if(DOState.Status[DO_TIM4] != DOSTATE_STATUS_COMPLETE)
 				{
 					Process_COMMAND_STOP();
@@ -1007,6 +1006,9 @@ void Manual_Poll(void)
 					
 					Wave_type = sAdditionalData.V_Wave_type;
 					UserOperation.V_ModeExtBnc.Param[UO_PARAM_PULSE] = sAdditionalData.V_Bnc_Pulse;
+					
+					
+					DIS_C_OP();
 					
 					switch(UserOperation.fMode)
 					{
@@ -1044,6 +1046,8 @@ void Manual_Poll(void)
 					
 					Wave_type = sAdditionalData.C_Wave_type;
 					UserOperation.C_ModeExtBnc.Param[UO_PARAM_PULSE] = sAdditionalData.C_Bnc_Pulse;
+					
+					DIS_C_OP();
 					
 					switch(UserOperation.fMode)
 					{
@@ -1158,7 +1162,7 @@ void Manual_Poll(void)
 				Process_COMMAND_STOP();
 				TIM3_DISABLE();	
 				pLEDOUTPUT = LED_DIRECTLY_OFF;
-				pLEDRUN = LED_DIRECTLY_OFF;				
+				pLEDRUN = LED_SN74HC240_OFF;				
 				Led_ParamPartOff();
 				
 				if(UserOperation.fMode != UO_MODE_SINGLE)
@@ -1197,7 +1201,7 @@ void Manual_Poll(void)
 				UI.fFlush = FLUSH_END;
 				TIM3_DISABLE();
 				pLEDOUTPUT = LED_DIRECTLY_OFF;
-				pLEDRUN = LED_DIRECTLY_OFF;
+				pLEDRUN = LED_SN74HC240_OFF;
 				
 				Led_ParamPartOff();
 				
@@ -1237,7 +1241,7 @@ void Manual_Poll(void)
 				UI.fFlush = FLUSH_END;
 				TIM3_DISABLE();
 				pLEDOUTPUT = LED_DIRECTLY_OFF;
-				pLEDRUN = LED_DIRECTLY_OFF;
+				pLEDRUN = LED_SN74HC240_OFF;
 				
 				Led_ParamPartOff();
 				
@@ -1274,7 +1278,10 @@ void Manual_Poll(void)
 			else if(i == BTN_EXTBNC && DOState.Status[DO_TIM4] == DOSTATE_STATUS_COMPLETE)					//按下外部触发模式键
 			{				
 				Led_ParamPartOff();
-				
+				//if(UserOperation.bVC == SELECT_VC_C)
+				//{
+					DIS_C_OP();
+				//}
 				if(UserOperation.fMode != UO_MODE_EXTBNC)
 				{
 					Led_ModePartOff();
@@ -1309,11 +1316,11 @@ void Manual_Poll(void)
 				
 				SW_CV_OUTPUT = 1;			//进入BNC模式后，打开继电器
 				Delay_ms(10);
-				if(UserOperation.bVC == SELECT_VC_C)
-				{
-					EN_C_OP();
-					Delay_ms(10);
-				}
+//				if(UserOperation.bVC == SELECT_VC_C)
+//				{
+//					EN_C_OP();
+//					Delay_ms(10);
+//				}
 				
 				//收到上升沿脉冲后开始输出信号，打开LED指示灯
 				

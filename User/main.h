@@ -70,9 +70,6 @@
 
 
 
-/*
-*电压输出或电流输出，最电压有两个版本，80V和100V
-*/
 
 
 #define PCB_V14			14			//LZG_WFC,添加小数点此处报错
@@ -80,7 +77,7 @@
 #define PCB_V16			16			//杨工改进输出幅值版本
 #define PCB_VERSION		PCB_V15
 
-#define SOFTWARE_VERSION 0x030301		//版本号采用3位管理，xx.xx.xx
+#define SOFTWARE_VERSION 0x030302		//版本号采用3位管理，xx.xx.xx
 
 #define LZG_WFC			0xff
 

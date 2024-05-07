@@ -134,12 +134,16 @@ void TIM5_IRQHandler(void)
 					else tim5_delay_us(30);//波形宽度补偿			
 					
 					Output_VorC(UserOperation.bVC, 0, OUTPUT_ENABLE);
+					if(UserOperation.bVC == SELECT_VC_C)
+					{
+						DIS_C_OP();
+					}
 					
 					BNCMode_Reflash_LCD_Status = 0;
 					Disable_Timer5();
 					TIM5_IRQ_Count=0;
 					pLEDOUTPUT = LED_DIRECTLY_OFF;
-					pLEDRUN = LED_DIRECTLY_OFF;
+					pLEDRUN = LED_SN74HC240_OFF;
 				}
 			}
 			else
@@ -233,6 +237,11 @@ void Enable_Timer5(u32 arr)
 		Output_VorC(UserOperation.bVC, (0-pPwmArrayParam[DO_TIM4]->Ampl), OUTPUT_ENABLE);
 	}
 	
+	if((UserOperation.bVC == SELECT_VC_C) && (UserOperation.fMode == UO_MODE_EXTBNC) )
+	{
+		EN_C_OP();
+	}
+	
 	//TIM5->PSC = TIM5_FREQ_DIV;	//4M
 	if(Wave_type <= 1)
 	{
@@ -263,10 +272,10 @@ void Disable_Timer5(void)
 	TIM5->ARR = 0;
 	TIM5->SR = (uint16_t)~TIM_IT_Update;
 	
-	if(UserOperation.fMode == UO_MODE_EXTBNC)
-	{
-		DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
-	}
+//	if(UserOperation.fMode == UO_MODE_EXTBNC)
+//	{
+//		DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
+//	}
 }
 
 
@@ -304,60 +313,72 @@ void TIM3_IRQHandler(void)
 {	
 	if(TIM_GetITStatus(TIM3,TIM_IT_Update) != RESET)
 	{
-		tim3_count++;
 		
-		//log_info("%d %d %d\r\n",Wave_type,tim3_count,BNCMode_Reflash_LCD_Status);
-		
-		if((Wave_type==0) || (Wave_type ==1))
+		if(pTRIGGER_IN == 1) //如果触发信号为高电平，则保持RUN状态
 		{
-			if((tim3_count % 2) )
-			{
-				//pLEDOUTPUT = LED_DIRECTLY_OFF;
-				//pLEDRUN = LED_DIRECTLY_OFF;
-				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
-			}
-			if((tim3_count % 2) ==0 )
-			{
-				DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
-				//pLEDOUTPUT = LED_DIRECTLY_ON;
-				
-			}
-			
-			if(BNCMode_Reflash_LCD_Status == 0 )
-			{
-				//pLEDOUTPUT = LED_DIRECTLY_OFF;
-				//pLEDRUN = LED_DIRECTLY_OFF;
-				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
-				tim3_count =0;
-				TIM3_DISABLE();
-			}
+			DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
 		}
-		
 		else
 		{
-			
-			if((tim3_count % 2) )
-			{
-				//pLEDOUTPUT = LED_DIRECTLY_OFF;
-				//pLEDRUN = LED_DIRECTLY_OFF;
-				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
-			}
-			if((tim3_count % 2) ==0 )
-			{
-				DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
-				//pLEDOUTPUT = LED_DIRECTLY_ON;
-				//pLEDRUN = LED_DIRECTLY_ON;
-			}
-			
-			if((tim3_count>2) && (BNCMode_Reflash_LCD_Status == 0) )
-			{
-				//pLEDOUTPUT = LED_DIRECTLY_OFF;
-				//pLEDRUN = LED_DIRECTLY_OFF;
-				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
-				tim3_count =0;
-				TIM3_DISABLE();
-			}
+			DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
+			TIM3_DISABLE();
 		}
+		
+		
+//		tim3_count++;
+//		
+//		//log_info("%d %d %d\r\n",Wave_type,tim3_count,BNCMode_Reflash_LCD_Status);
+//		
+//		if((Wave_type==0) || (Wave_type ==1))
+//		{
+//			if((tim3_count % 2) )
+//			{
+//				//pLEDOUTPUT = LED_DIRECTLY_OFF;
+//				//pLEDRUN = LED_SN74HC240_OFF;
+//				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
+//			}
+//			if((tim3_count % 2) ==0 )
+//			{
+//				DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
+//				//pLEDOUTPUT = LED_DIRECTLY_ON;
+//				
+//			}
+//			
+//			if(BNCMode_Reflash_LCD_Status == 0 )
+//			{
+//				//pLEDOUTPUT = LED_DIRECTLY_OFF;
+//				//pLEDRUN = LED_SN74HC240_OFF;
+//				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
+//				tim3_count =0;
+//				TIM3_DISABLE();
+//			}
+//		}
+//		
+//		else
+//		{
+//			
+//			if((tim3_count % 2) )
+//			{
+//				//pLEDOUTPUT = LED_DIRECTLY_OFF;
+//				//pLEDRUN = LED_SN74HC240_OFF;
+//				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
+//			}
+//			if((tim3_count % 2) ==0 )
+//			{
+//				DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
+//				//pLEDOUTPUT = LED_DIRECTLY_ON;
+//				//pLEDRUN = LED_SN74HC240_ON;
+//			}
+//			
+//			if((tim3_count>2) && (BNCMode_Reflash_LCD_Status == 0) )
+//			{
+//				//pLEDOUTPUT = LED_DIRECTLY_OFF;
+//				//pLEDRUN = LED_SN74HC240_OFF;
+//				DOState.Status[DO_TIM4] = DOSTATE_STATUS_COMPLETE;
+//				tim3_count =0;
+//				TIM3_DISABLE();
+//			}
+//		}
 		
 		//log_info("%d %d %d\r\n",Wave_type,tim3_count,BNCMode_Reflash_LCD_Status);
 		

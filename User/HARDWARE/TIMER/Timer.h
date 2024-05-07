@@ -65,7 +65,7 @@ void Timer2_Init(u32 arr,u16 psc);
 #define TIM5_ENABLE()		TIM5->CR1 |= TIM_CR1_CEN
 #define TIM5_DISABLE()		TIM5->CR1 &= (uint16_t)~TIM_CR1_CEN;
 
-#define TIM3_ENABLE()		TIM3->CR1 |= TIM_CR1_CEN
+#define TIM3_ENABLE()		{TIM3->CNT	=	0;TIM3->CR1 |= TIM_CR1_CEN;}
 #define TIM3_DISABLE()		{TIM3->CR1 &= (uint16_t)~TIM_CR1_CEN; TIM3->CNT = 0;}	
 
 extern __IO uint8_t BNCMode_Reflash_LCD_Status;

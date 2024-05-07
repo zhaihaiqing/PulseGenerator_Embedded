@@ -48,8 +48,10 @@ void EXTI0_IRQHandler(void)
 			{
 				//log_info("123,%d,%d %d\r\n",UserOperation.fMode,Wave_type,pPwmArrayParam[DO_TIM4]->Ampl);
 				
+				
+				
 				pLEDOUTPUT = LED_DIRECTLY_ON;
-				pLEDRUN = LED_DIRECTLY_ON;
+				pLEDRUN = LED_SN74HC240_ON;
 				
 				DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
 				BNCMode_Reflash_LCD_Status = 1;
@@ -63,6 +65,12 @@ void EXTI0_IRQHandler(void)
 				{
 					Output_VorC(UserOperation.bVC, (0-pPwmArrayParam[DO_TIM4]->Ampl), OUTPUT_ENABLE);
 				}
+				
+				if(UserOperation.bVC == SELECT_VC_C)
+				{
+					EN_C_OP();
+				}
+				
 				//pTRIGGER_OUT = 1;
 				//log_info("123\r\n");
 				
@@ -70,12 +78,15 @@ void EXTI0_IRQHandler(void)
 			else if(pTRIGGER_IN == 0)//下降沿
 			{
 				//log_info("456,%d,%d %d\r\n",UserOperation.fMode,Wave_type,pPwmArrayParam[DO_TIM4]->Ampl);
-				
+				if(UserOperation.bVC == SELECT_VC_C)
+				{
+					DIS_C_OP();
+				}
 				Output_VorC(UserOperation.bVC, 0, OUTPUT_ENABLE);
 				//pTRIGGER_OUT = 0;
 				
 				pLEDOUTPUT = LED_DIRECTLY_OFF;
-				pLEDRUN = LED_DIRECTLY_OFF;
+				pLEDRUN = LED_SN74HC240_OFF;
 				
 				BNCMode_Reflash_LCD_Status = 0;
 			}
@@ -112,9 +123,10 @@ void EXTI0_IRQHandler(void)
 					t5_arr = t5_arr+TIM5_ARR_Compensate2;				
 					
 					pLEDOUTPUT = LED_DIRECTLY_ON;
-					pLEDRUN = LED_DIRECTLY_ON;
+					pLEDRUN = LED_SN74HC240_ON;
 					DOState.Status[DO_TIM4] = DOSTATE_STATUS_RUNNING;
 					BNCMode_Reflash_LCD_Status = 1;
+					
 					TIM3_ENABLE();
 					
 					Enable_Timer5(t5_arr);
@@ -348,7 +360,7 @@ void TriggerExIN01_Init(void)
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//普通输出模式
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;//上拉
 	GPIO_Init(GPIOB, &GPIO_InitStructure);//初始化
 	
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource0);//PE2 连接到中断线2

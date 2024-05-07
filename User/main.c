@@ -330,12 +330,12 @@ void Init_Devices(void)
 *	4：1ms定时，分频系数84，所以84M/84=1000Khz的计数频率，计数1000次为1ms
 *	5：100us定时，分频系数84，所以84M/84=1000Khz的计数频率，计数100次为100us
 */
-	Delay_ms(100);	//等待
+	Delay_ms(5);	//等待
 	WDG_Feed();
 	APOW_ON();		//打开模拟电源
 		log_info("Anglog power has open!\r\n");
 		log_info("Wait for analog power to stabilize......!\r\n");
-		Delay_ms(300);	//等待模拟电源稳定
+		Delay_ms(150);	//等待模拟电源稳定
 	WDG_Feed();
 	LED_Init();
 		log_info("LED_Init OK!\r\n");
@@ -371,7 +371,7 @@ void Init_Devices(void)
 	LCDRST_Init();
 	WDG_Feed();
 		log_info("Reset LCD!\r\n");
-	Delay_ms(600);	
+	Delay_ms(500);	
 	WDG_Feed();
 	
 	LCD_Init();
@@ -403,7 +403,7 @@ void Init_Devices(void)
 	
 	//定时器5，PWM1模式，
 	Timer5_Init(10000-1,TIM5_FREQ_DIV);	//固定分频，0.5us，定时器频率=0.5us*(arr+1)
-	Timer3_Init(1000, TIM3_FREQ_DIV);
+	Timer3_Init(1000-1, TIM3_FREQ_DIV);
 	
 	Delay_ms(50);	
 	WDG_Feed();
@@ -463,7 +463,7 @@ int main(void)
 	Init_Devices();
 	
 	WDG_Feed();
-	Timer9_PWM_OC1_SetDuty(80);
+	Timer9_PWM_OC1_SetDuty(100);
 	Delay_ms(400);				//延时400ms，避免低占空比下，风扇不启动
 	WDG_Feed();
 	
@@ -474,26 +474,26 @@ int main(void)
 		{
 			temp = get_temp();
 			
-			if(temp > 60)
-			{
-				Timer9_PWM_OC1_SetDuty(100);
-			}
-			else if(temp > 55)
-			{
-				Timer9_PWM_OC1_SetDuty(90);
-			}
-			else if(temp > 50)
-			{
-				Timer9_PWM_OC1_SetDuty(80);
-			}
-			else if(temp > 45)
-			{
-				Timer9_PWM_OC1_SetDuty(70);
-			}
-			else
-			{
-				Timer9_PWM_OC1_SetDuty(45);
-			}
+//			if(temp > 60)
+//			{
+//				Timer9_PWM_OC1_SetDuty(100);
+//			}
+//			else if(temp > 55)
+//			{
+//				Timer9_PWM_OC1_SetDuty(90);
+//			}
+//			else if(temp > 50)
+//			{
+//				Timer9_PWM_OC1_SetDuty(80);
+//			}
+//			else if(temp > 45)
+//			{
+//				Timer9_PWM_OC1_SetDuty(70);
+//			}
+//			else
+//			{
+//				Timer9_PWM_OC1_SetDuty(45);
+//			}
 		}
 			
 		Manual_Poll();

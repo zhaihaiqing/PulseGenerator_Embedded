@@ -86,7 +86,7 @@ float get_temp(void)
 {
 	float temp=0;
 	temp = GetTempValue(TEMP_I2C_ADDR);
-	log_info("get_temp:%f\r\n",temp);
+	log_info("get_temp:%0.2f\r\n",temp);
 	return temp;
 }
 

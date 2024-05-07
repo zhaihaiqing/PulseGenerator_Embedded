@@ -971,7 +971,7 @@ void LCD_Init(void)
 	WDG_Feed();
 	Delay_ms(800); 					// delay 50 ms能够显示，延时1000ms也能显示，杂点少，更稳定，但延时600ms花屏，建议延时800-1000ms 
 	WDG_Feed();
-  	lcddev.id=LCD_ReadReg(0x0000);	//读ID（9320/9325/9328/4531/4535等IC）
+  	lcddev.id=LCD_ReadReg(0x00);	//读ID（9320/9325/9328/4531/4535等IC）
 	log_info("lcddev.id=0x%x\r\n",lcddev.id);
 
 	{
@@ -1146,6 +1146,51 @@ void LCD_Init(void)
 	}	
 	LCD_Display_Dir(1);		//默认为竖屏0
 	LCD_Clear(COLOR_DESKTOP);
+	
+	//增加屏幕判断，读错误时，执行重启
+	{
+		uint16_t lcd_id = 0;
+		uint8_t reg_val[7] = {0},i=0;
+		
+		lcd_id=LCD_ReadReg(0x00);	//读ID（9320/9325/9328/4531/4535等IC）
+		log_info("lcd_id=0x%x\r\n",lcd_id);
+		
+		
+			
+		LCD_WR_REG(0xa1);
+		delay_us(5);
+		reg_val[0] = LCD_RD_DATA();
+		reg_val[1] = LCD_RD_DATA();
+		reg_val[2] = LCD_RD_DATA();
+		reg_val[3] = LCD_RD_DATA();
+		reg_val[4] = LCD_RD_DATA();
+		
+		
+		log_info("get_lcd_mode:");
+		for(i=0;i<5;i++)
+			log_info(" 0x%x",reg_val[i]);
+		log_info("\r\n");		
+		
+	
+		LCD_WR_REG(0XA1);
+		lcd_id = LCD_RD_DATA();
+		lcd_id = LCD_RD_DATA();  //读回0X57
+		lcd_id <<= 8;
+		lcd_id |= LCD_RD_DATA(); //读回0X61
+		log_info("lcd_id=0x%x\r\n",lcd_id);
+		
+		if(lcd_id != 0x5761)
+		{
+			log_info("LCD init fail,The system will be restarted!\r\n");
+			Delay_ms(100);
+			NVIC_SystemReset();
+		}
+	}
+	
+	
+	
+	
+	
 }
 /********************************************************************
 *	功能	：	LCD复位引脚初始化
