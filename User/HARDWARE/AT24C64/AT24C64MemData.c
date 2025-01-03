@@ -94,8 +94,10 @@ void Memory_OverLimit_Process(uint64_t *value, uint64_t ceiling)
 ******************************************************************************/
 void Memory_ConfigLoad(void)
 {	
+	WDG_Feed();
 	AT24CXX_Read(512, (void *)&sMemData, sizeof(sMemData));
-										
+	WDG_Feed();
+	
 	if((sMemData.sCheckdata_A != 0x7e)  || (sMemData.sCheckdata_B != 0x45) )	//读取失败，加载默认值
 	{
 		log_info("Load par error,set to default value!\r\n");
@@ -197,8 +199,10 @@ void Memory_ConfigLoad(void)
 
 		sMemData.sCheckdata_B = 0x45;																													
 		
-		AT24CXX_Write(512, (void *)&sMemData, sizeof(sMemData));
+		WDG_Feed();
 		
+		AT24CXX_Write(512, (void *)&sMemData, sizeof(sMemData));
+		WDG_Feed();
 		
 		
 		
@@ -208,9 +212,9 @@ void Memory_ConfigLoad(void)
 		sAdditionalData.V_Bnc_Pulse = 2000000;
 		sAdditionalData.C_Bnc_Pulse = 2000000;
 		
-		
+		WDG_Feed();
 		AT24CXX_Write(230, (void *)&sAdditionalData, sizeof(sAdditionalData));
-		
+		WDG_Feed();
 		
 		UserOperation.V_ModeSingle.fUnit						= sMemData.V_ModeSingle_fUnit				;
 		UserOperation.V_ModeSingle.ParamNAD[UO_PARAM_PULSE] 	= sMemData.V_ModeSingle_ParamNAD_PULSE		;
@@ -319,11 +323,12 @@ void Memory_ConfigLoad(void)
 		UserOperation.C_ModeExtBnc.ParamNAD[UO_PARAM_AMPL] 		= sMemData.C_ModeExtBnc_ParamNAD_AMPL       ;
 		UserOperation.C_ModeExtBnc.Param[UO_PARAM_AMPL]			= sMemData.C_ModeExtBnc_Param_AMPL          ;
 		
+		WDG_Feed();
 		log_info("UserOperation.V_ModeTrain.Param[UO_PARAM_PULSE]:%lld\r\n",UserOperation.V_ModeTrain.Param[UO_PARAM_PULSE]);
 		log_info("UserOperation.V_ModeTrain.Param[UO_PARAM_AMPL]:%lld\r\n",UserOperation.V_ModeTrain.Param[UO_PARAM_AMPL]);
 		log_info("UserOperation.V_ModeTrain.Param[UO_PARAM_FREQ]:%lld\r\n",UserOperation.V_ModeTrain.Param[UO_PARAM_FREQ]);
 		log_info("UserOperation.V_ModeTrain.Param[UO_PARAM_DURATION]:%lld\r\n",UserOperation.V_ModeTrain.Param[UO_PARAM_DURATION]);
-		
+		WDG_Feed();
 		
 	
 		
@@ -356,7 +361,9 @@ void Memory_ConfigLoad(void)
 		Switch.ModePre = 0;																	//读取后考虑对开关等的处理
 		Switch.ModeCur = UserOperation.bVC << MODE_BIT_VC;   //MODE_BIT_VC		0
 		Switch_Ctrl(UO_PHASE_UNIPHASE);
-
+		
+		WDG_Feed();
+		
 		UserOperation.fMode = UO_MODE_NONE;
 		
 		switch(UserOperation.bVC)															//对参数标志位进行读取
@@ -419,14 +426,16 @@ void Memory_ConfigLoad(void)
 		}
 	}
 	
-	
+	WDG_Feed();
 	AT24CXX_Read(230, (void *)&sAdditionalData, sizeof(sAdditionalData));
+	WDG_Feed();
 	
 	if(sAdditionalData.V_Wave_type>3)sAdditionalData.V_Wave_type=0;
 	if(sAdditionalData.C_Wave_type>3)sAdditionalData.C_Wave_type=0;
 	
 	log_info("V_Wave_type:%d,C_Wave_type:%d\r\n",sAdditionalData.V_Wave_type,sAdditionalData.C_Wave_type);
 		
+	WDG_Feed();
 	if(UserOperation.bVC == SELECT_VC_V)
 	{
 		Wave_type = sAdditionalData.V_Wave_type;
@@ -437,7 +446,7 @@ void Memory_ConfigLoad(void)
 		Wave_type = sAdditionalData.C_Wave_type;
 		UserOperation.C_ModeExtBnc.Param[UO_PARAM_PULSE] = sAdditionalData.C_Bnc_Pulse;
 	}
-	
+	WDG_Feed();
 	
 	#if(TEST_AT24CXX)
 		AT24CXX_Read(0, Tbl_MemData, MEMDATA_LEN);
@@ -450,9 +459,13 @@ void Memory_ConfigLoad(void)
 
 void Get_MCU_POR_Times(void)
 {
+	WDG_Feed();
 	AT24CXX_Read(230, (void *)&sAdditionalData, sizeof(sAdditionalData));
+	WDG_Feed();
 	sAdditionalData.MCU_POR_Times++;
+	
 	AT24CXX_Write(230, (void *)&sAdditionalData, sizeof(sAdditionalData));
+	WDG_Feed();
 }
 
 
@@ -466,7 +479,9 @@ void test_eeprom(void)
 	
 	len=sizeof(sMemData_tt);
 	
+	WDG_Feed();
 	AT24CXX_Read(512, (void *)&sMemData_tt, len);
+	WDG_Feed();
 	
 	log_info("test_eeprom\r\n");
 	log_info("sMemData_tt.C_ModeExtBnc_ParamNAD_AMPL:%d\r\n",sMemData_tt.C_ModeExtBnc_ParamNAD_AMPL);
@@ -556,8 +571,9 @@ void Memory_Poll(void)
 	
 		sMemData.MCU_POR_Times						= 0;
 
-		sMemData.sCheckdata_B = 0x45;																													
+		sMemData.sCheckdata_B = 0x45;	
 		
+		WDG_Feed();
 		log_info("UserOperation.V_ModeTrain.Param[UO_PARAM_PULSE]:%lld\r\n",UserOperation.V_ModeTrain.Param[UO_PARAM_PULSE]);
 		log_info("UserOperation.V_ModeTrain.Param[UO_PARAM_AMPL]:%lld\r\n",UserOperation.V_ModeTrain.Param[UO_PARAM_AMPL]);
 		log_info("UserOperation.V_ModeTrain.Param[UO_PARAM_FREQ]:%lld\r\n",UserOperation.V_ModeTrain.Param[UO_PARAM_FREQ]);
@@ -568,8 +584,9 @@ void Memory_Poll(void)
 		log_info("UserOperation.C_ModeTrain.Param[UO_PARAM_FREQ]:%lld\r\n",UserOperation.C_ModeTrain.Param[UO_PARAM_FREQ]);
 		log_info("UserOperation.C_ModeTrain.Param[UO_PARAM_DURATION]:%lld\r\n",UserOperation.C_ModeTrain.Param[UO_PARAM_DURATION]);
 		
-		
+		WDG_Feed();
 		AT24CXX_Write(512, (void *)&sMemData, sizeof(sMemData));
+		WDG_Feed();
 		
 		T6.MemoryUpdateCnt = MEMORYUPDATE_UPCNT_CLEAR;
 	}

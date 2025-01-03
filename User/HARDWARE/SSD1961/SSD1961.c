@@ -890,7 +890,7 @@ void LCD_Init(void)
 	
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD|RCC_AHB1Periph_GPIOE, ENABLE);//使能PD,PE时钟  
 	RCC_AHB3PeriphClockCmd(RCC_AHB3Periph_FSMC,ENABLE);//使能FSMC时钟
-
+	WDG_Feed();
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_14 | GPIO_Pin_15;//PD0,1,4,5,8,9,10,14,15 AF OUT
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//复用输出
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
@@ -927,7 +927,7 @@ void LCD_Init(void)
 	
 	GPIO_PinAFConfig(GPIOD,GPIO_PinSource7,GPIO_AF_FSMC);	//CS#   FSMC_NE1
 	GPIO_PinAFConfig(GPIOD,GPIO_PinSource11,GPIO_AF_FSMC);	//RS    FSMC_A16
-	
+	WDG_Feed();
 	
 	//方式1，
 	readWriteTiming.FSMC_AddressSetupTime = 16;	 			//地址建立时间（ADDSET）为16个HCLK 1/168M=6ns*16=96ns	
@@ -946,7 +946,7 @@ void LCD_Init(void)
 	writeTiming.FSMC_DataLatency = 0x00;
 	writeTiming.FSMC_AccessMode = FSMC_AccessMode_A;	 	//模式A 
 
-
+	WDG_Feed();
 	FSMC_NORSRAMInitStructure.FSMC_Bank = FSMC_Bank1_NORSRAM1;//  这里我们使用NE1，也就对应BTCR[0]。
 	FSMC_NORSRAMInitStructure.FSMC_DataAddressMux = FSMC_DataAddressMux_Disable; // 不复用数据地址
 	FSMC_NORSRAMInitStructure.FSMC_MemoryType =FSMC_MemoryType_SRAM;// FSMC_MemoryType_SRAM;  //SRAM   
@@ -969,7 +969,9 @@ void LCD_Init(void)
 	
 	
 	WDG_Feed();
-	Delay_ms(800); 					// delay 50 ms能够显示，延时1000ms也能显示，杂点少，更稳定，但延时600ms花屏，建议延时800-1000ms 
+	Delay_ms(400); 					// delay 50 ms能够显示，延时1000ms也能显示，杂点少，更稳定，但延时600ms花屏，建议延时800-1000ms 
+	WDG_Feed();
+	Delay_ms(400);
 	WDG_Feed();
   	lcddev.id=LCD_ReadReg(0x00);	//读ID（9320/9325/9328/4531/4535等IC）
 	log_info("lcddev.id=0x%x\r\n",lcddev.id);
@@ -1070,13 +1072,16 @@ void LCD_Init(void)
 		LCD_WR_REG(0xE0);		// Start PLL command
 		LCD_WR_DATA(0x01);		// enable PLL		
 		Delay_ms(10);
+		WDG_Feed();
 		LCD_WR_REG(0xE0);		// Start PLL command again
 		LCD_WR_DATA(0x03);		// now, use PLL output as system clock	
 		Delay_ms(12);  
 		LCD_WR_REG(0x01);		//软复位
 		Delay_ms(10);
-		Delay_ms(800);			// longzhigu:  [V194]
-		
+		Delay_ms(400);			// longzhigu:  [V194]
+		WDG_Feed();
+		Delay_ms(400);
+		WDG_Feed();
 		LCD_WR_REG(0xE6);		//设置像素频率,33Mhz
 		LCD_WR_DATA(0x2F);		//web--0x04
 		LCD_WR_DATA(0xFF);		//web--0xcc
@@ -1141,7 +1146,9 @@ void LCD_Init(void)
 		LCD_WR_DATA(0X01);	//GPIO[1:0]=01,控制LCD方向
 		
 		LCD_SSD_BackLightSet(0);//背光设置为最亮100
+		WDG_Feed();
 		Delay_ms(200);
+		WDG_Feed();
 		LCD_SSD_BackLightSet(0);//背光设置为最亮100
 	}	
 	LCD_Display_Dir(1);		//默认为竖屏0
@@ -1155,7 +1162,7 @@ void LCD_Init(void)
 		lcd_id=LCD_ReadReg(0x00);	//读ID（9320/9325/9328/4531/4535等IC）
 		log_info("lcd_id=0x%x\r\n",lcd_id);
 		
-		
+		WDG_Feed();
 			
 		LCD_WR_REG(0xa1);
 		delay_us(5);
@@ -1182,6 +1189,7 @@ void LCD_Init(void)
 		if(lcd_id != 0x5761)
 		{
 			log_info("LCD init fail,The system will be restarted!\r\n");
+			WDG_Feed();
 			Delay_ms(100);
 			NVIC_SystemReset();
 		}

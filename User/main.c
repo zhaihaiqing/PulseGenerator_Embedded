@@ -73,7 +73,7 @@ void IO_Init()
 
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//使能GPIOE时钟
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//使能GPIOE时钟
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//使能GPIOE时钟
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);//使能GPIOE时钟
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);//使能GPIOE时钟
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);//使能GPIOE时钟
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);//使能GPIOE时钟
@@ -119,6 +119,14 @@ void IO_Init()
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
 	GPIO_Init(GPIOB, &GPIO_InitStructure);//初始化
+	
+	
+	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_12;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
+	GPIO_Init(GPIOC, &GPIO_InitStructure);//初始化
 	
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_6 | GPIO_Pin_12 | GPIO_Pin_13;
@@ -307,10 +315,12 @@ void Init_Devices(void)
 	
 	Init_SysTick();//开启SysTick定时器
 	
-	WDG_Init(5,4000);
+	//WDG_Init(5,4000);
 	
 	IO_Init();
 	Usart6_Init(DEBUG_UART_RATE);
+	WDG_Feed();
+
 	
 	log_info("\r\n");
 	log_info("****************************************************************\r\n");
@@ -495,7 +505,7 @@ int main(void)
 //				Timer9_PWM_OC1_SetDuty(45);
 //			}
 		}
-			
+		WDG_Feed();	
 		Manual_Poll();
 		WDG_Feed();
 		Memory_Poll();
@@ -503,11 +513,12 @@ int main(void)
 		if(UI_TASK_POLL_FLAG )
 		{
 			UI_TASK_POLL_FLAG = 0;
-			
+			WDG_Feed();
 			UI_Poll(DISABLE_WARNING);
 			WDG_Feed();			
 			//log_info("UI_TASK_POLL_FLAG:%d\r\n",UI_TASK_POLL_FLAG);
 		}
+		WDG_Feed();
 		Led_ShortOn_Poll();
 		WDG_Feed();
 		
@@ -536,31 +547,17 @@ int main(void)
 					if(strncmp(Device_Prefix,uart_buf,8) == 0)	//前缀相同
 					{
 						log_info("Usart6Flag=1,Usart6_rx_len:%d,uart_buf:%-28s,SN:%-18s\r\n",Usart6_rx_len,uart_buf,&uart_buf[8]);
+						WDG_Feed();
 						AT24CXX_Write(512, (void *)&uart_buf[8], 18);
-					}
-					else
-					{
-						;
+						WDG_Feed();
 					}					
-				}
-				else
-				{
-					;
 				}
 				Usart6Flag = 0;
 				Usart6_rx_len = 0;
-				
-				AT24CXX_Read(512, (void *)&Device_SN, 18);			
+				WDG_Feed();
+				AT24CXX_Read(512, (void *)&Device_SN, 18);	
+				WDG_Feed();				
 			}
-			else
-			{
-				;
-			}
-			
-		}
-		else
-		{
-			;
 		}
 		WDG_Feed();
 		//Delay_ms(1);

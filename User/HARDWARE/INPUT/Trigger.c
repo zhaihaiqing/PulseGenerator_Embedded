@@ -1,8 +1,6 @@
 
 #include  "main.h"
 
-
-
 #define TRIGGER_EXTBNC_ACTIVE		0			//上升沿，高电平进行输出
 #define TRIGGER_EXTBNE_INACTIVE		1			//下降沿，低电平停止输出。输入光耦反向，故下降沿时引脚电平为高
 
@@ -23,7 +21,6 @@ static void trigger_delay_us(uint32_t times)
 	}
 }
 
-//__IO unsigned int ex0_count=0;
 __IO unsigned int ex_bnc_flag=0;
 void EXTI0_IRQHandler(void)
 {
@@ -48,8 +45,6 @@ void EXTI0_IRQHandler(void)
 			{
 				//log_info("123,%d,%d %d\r\n",UserOperation.fMode,Wave_type,pPwmArrayParam[DO_TIM4]->Ampl);
 				
-				
-				
 				pLEDOUTPUT = LED_DIRECTLY_ON;
 				pLEDRUN = LED_SN74HC240_ON;
 				
@@ -71,7 +66,7 @@ void EXTI0_IRQHandler(void)
 					EN_C_OP();
 				}
 				
-				//pTRIGGER_OUT = 1;
+				pTRIGGER_OUT = 1;
 				//log_info("123\r\n");
 				
 			}
@@ -83,7 +78,7 @@ void EXTI0_IRQHandler(void)
 					DIS_C_OP();
 				}
 				Output_VorC(UserOperation.bVC, 0, OUTPUT_ENABLE);
-				//pTRIGGER_OUT = 0;
+				pTRIGGER_OUT = 0;
 				
 				pLEDOUTPUT = LED_DIRECTLY_OFF;
 				pLEDRUN = LED_SN74HC240_OFF;
@@ -144,6 +139,7 @@ void EXTI0_IRQHandler(void)
 #if(PCB_VERSION >= PCB_V15)
 void UO_Update(uint8_t updatecmd)
 {
+	WDG_Feed();
 	INTX_DISABLE();								//关闭中断，涉及PWM中断相关参数
 										
 	switch(UserOperation.fMode)

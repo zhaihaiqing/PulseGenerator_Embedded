@@ -140,6 +140,7 @@ void TIM5_IRQHandler(void)
 					}
 					
 					BNCMode_Reflash_LCD_Status = 0;
+					pTRIGGER_OUT = 0;
 					Disable_Timer5();
 					TIM5_IRQ_Count=0;
 					pLEDOUTPUT = LED_DIRECTLY_OFF;

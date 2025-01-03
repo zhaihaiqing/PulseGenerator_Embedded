@@ -18,7 +18,11 @@ void WDG_Init(u8 prer,u32 rlr)
 ******************************************************************************/
 void WDG_Feed(void)
 {
-	IWDG_ReloadCounter();
+	//IWDG_ReloadCounter();
+	
+	//GPIOC->ODR ^= GPIO_Pin_12;
+	
+	GPIO_ToggleBits(GPIOC,GPIO_Pin_12);
 }
 
 

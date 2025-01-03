@@ -93,6 +93,7 @@ void AT24CXX_Read(u16 ReadAddr,u8 *pBuffer,u16 NumToRead)
 {
 	while(NumToRead)
 	{
+		WDG_Feed();
 		*pBuffer++=AT24CXX_ReadOneByte(ReadAddr++);
 		NumToRead--;
 	}
@@ -109,6 +110,7 @@ void AT24CXX_Write(u16 WriteAddr,u8 *pBuffer,u16 NumToWrite)
 {
 	while(NumToWrite--)
 	{
+		WDG_Feed();
 		AT24CXX_WriteOneByte(WriteAddr,*pBuffer);
 		WriteAddr++;
 		pBuffer++;

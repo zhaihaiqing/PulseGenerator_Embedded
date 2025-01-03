@@ -1870,8 +1870,9 @@ static void UI_DisplayFlush(void)
 ******************************************************************************/
 void UI_DeskTopInit(void)
 {
+	WDG_Feed();
 	LCD_Clear(COLOR_DESKTOP);
-	
+	WDG_Feed();
 	LCD_Fill(PG1_GAP_FIX_START_X, PG1_GAP_FIX_START_Y, PG1_GAP_FIX_START_X + PG1_GAP_FIX_AREA_WIDTH, PG1_GAP_FIX_START_Y + PG1_GAP_FIX_AREA_HEIGHT, COLOR_GAPLINE);
 }
 
@@ -1881,9 +1882,11 @@ void UI_DeskTopInit(void)
 void UI_Poll(uint8_t is_display_warning)
 {
 	static uint8_t firstin = 0;
-	
+	WDG_Feed();
 	UI_ContentScan();				//实时更新各显示内容
+	WDG_Feed();
 	UI_DisplayFlush();				//对有变化内容进行刷新显示
+	WDG_Feed();
 	if(firstin == 0)
 	{
 		LCD_SSD_BackLightSet(100);//背光设置为最亮100
@@ -1892,10 +1895,13 @@ void UI_Poll(uint8_t is_display_warning)
 	
 	if(is_display_warning == ENABLE_WARNING)
 	{
+		WDG_Feed();
 		LCD_Fill(200, 52, 430, 193, COLOR_DESKTOP);
 		LCD_ShowString_WithColor(270, 66, 360, 176, 24, "Warning",COLOR_DESKTOP,COLOR_RUN_AREA_RUNNING);
+		WDG_Feed();
 		LCD_ShowString_WithColor(220, 110, 430, 190, 16, "Exceed the safe value",COLOR_DESKTOP,COLOR_RUN_AREA_RUNNING);
 		LCD_ShowString_WithColor(220, 138, 430, 190, 16, "Continue:Press RUN",COLOR_DESKTOP,COLOR_RUN_AREA_RUNNING);
+		WDG_Feed();
 		LCD_ShowString_WithColor(220, 166, 430, 190, 16, "Cancel:Press PAUSE",COLOR_DESKTOP,COLOR_RUN_AREA_RUNNING);	
 	}	
 }

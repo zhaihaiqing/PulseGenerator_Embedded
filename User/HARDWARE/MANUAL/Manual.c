@@ -677,6 +677,7 @@ void Manual_Poll(void)
 	uint8_t i = 0, j = 0;
 	
 	keycode = bsp_GetKey();
+	WDG_Feed();
 	if(keycode != KEY_NONE)
 	{
 		i = (keycode - 1) / 3;																					//键值
@@ -702,6 +703,7 @@ void Manual_Poll(void)
 //					}
 					if(DOState.Status[DO_TIM4] != DOSTATE_STATUS_COMPLETE)
 					{
+						WDG_Feed();
 						Process_COMMAND_STOP();
 				    }
 					
@@ -712,6 +714,7 @@ void Manual_Poll(void)
 				{
 					if(DOState.Status[DO_TIM4] != DOSTATE_STATUS_COMPLETE)
 					{
+						WDG_Feed();
 						Output_VorC(UserOperation.bVC, 0, OUTPUT_DISABLE);
 					}
 						
@@ -723,7 +726,7 @@ void Manual_Poll(void)
 				
 				UserOperation.fParamType = UO_PARAM_NONE;
 				ParamEdit_RefreshPre();
-				
+				WDG_Feed();
 				Led_ParamPartOff();
 				
 				if(DOState.Status[DO_TIM4] == DOSTATE_STATUS_COMPLETE)							//运行过程
@@ -732,13 +735,12 @@ void Manual_Poll(void)
 					{
 						T6.MemoryUpdateCnt = T6_VALUE_MINUTE - T6_VALUE_SECOND * 20;							//参数有变动且触发运行则重新存储,20s储存空隙时间用于优先处理RUN操作
 					}
-					
+					WDG_Feed();
 					UO_Update(UPDATE_ALL);
+					WDG_Feed();
 					UserOperation.Update = UO_UPDATE_VALID;
 					
 					//Process_COMMAND_START();												//开始运行
-					
-					
 					if(UserOperation.bVC == SELECT_VC_V)
 					{
 						log_info("BTN_SINGLETRIGGER Mode Voltage,Ampl=%d\r\n",pPwmArrayParam[DO_TIM4]->Ampl);
@@ -768,6 +770,7 @@ void Manual_Poll(void)
 					
 					if(is_exceed_human_safety == 0)										//如果参数符合安全值，则直接输出
 					{
+						WDG_Feed();
 						Process_COMMAND_START();
 						//LedShortOn.fSinggleTrigger = LEDSHORTON_BEGIN;
 					}
@@ -785,7 +788,6 @@ void Manual_Poll(void)
 							
 							if( key_code == BTN_RUN )
 							{
-								
 								UI.fFlush = FLUSH_START;
 								Process_COMMAND_START();
 								//LedShortOn.fSinggleTrigger = LEDSHORTON_BEGIN;
@@ -824,7 +826,7 @@ void Manual_Poll(void)
 				{
 					UserOperation.fParamType = UO_PARAM_NONE;
 					ParamEdit_RefreshPre();
-					
+					WDG_Feed();
 					Led_ParamPartOff();			
 					
 					if(DOState.Status[DO_TIM4] == DOSTATE_STATUS_RUNNING)		//如果是run状态，按下pause暂停运行
@@ -837,7 +839,7 @@ void Manual_Poll(void)
 					else if(DOState.Status[DO_TIM4] == DOSTATE_STATUS_PAUSE)	//如果是pause状态，按下pause继续运行
 					{					
 						EXTI->IMR    |= 1<<0;
-						
+						WDG_Feed();
 						Process_COMMAND_CONTINUE();					
 						pLEDPAUSE = LED_SN74HC240_OFF;
 					}
@@ -858,7 +860,7 @@ void Manual_Poll(void)
 				{
 					UserOperation.bPhase = UO_PHASE_UNIPHASE;			//切换为正极性					
 				}
-				
+				WDG_Feed();
 				UserOperation.fParamType = UO_PARAM_NONE;
 				ParamEdit_RefreshPre();
 				
@@ -870,11 +872,12 @@ void Manual_Poll(void)
 			{				
 				UserOperation.fParamType = UO_PARAM_NONE;
 				ParamEdit_RefreshPre();
-				
+				WDG_Feed();
 				Led_ParamPartOff();
 				
 				if((UserOperation.fMode == UO_MODE_SINGLE) && (DOState.Status[DO_TIM4] == DOSTATE_STATUS_COMPLETE))									//如果设备处在单个波形模式，则执行代码，如果处于其他模式，则不理会
-				{					
+				{	
+					WDG_Feed();
 					UO_Update(UPDATE_ALL);													//在该函数中计算波形参数，获取参数等
 					UserOperation.Update = UO_UPDATE_VALID;									//设置一些运行状态
 						
